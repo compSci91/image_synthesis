@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		CC0CB06A20191A4C00060D53 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC0CB06920191A4C00060D53 /* main.cpp */; };
+		CC0CB0742019255D00060D53 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC0CB071201921C500060D53 /* OpenGL.framework */; };
+		CC0CB0762019256400060D53 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC0CB0752019256400060D53 /* GLUT.framework */; };
+		CC47D515202234640008949D /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC47D513202234640008949D /* Point.cpp */; };
+		CC47D518202247190008949D /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC47D516202247190008949D /* Plane.cpp */; };
+		CC47D51E20236BBC0008949D /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC47D51C20236BBC0008949D /* Rectangle.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +30,14 @@
 /* Begin PBXFileReference section */
 		CC0CB06620191A4C00060D53 /* BaseOpenGL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BaseOpenGL; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC0CB06920191A4C00060D53 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		CC0CB071201921C500060D53 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		CC0CB0752019256400060D53 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		CC47D513202234640008949D /* Point.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Point.cpp; sourceTree = "<group>"; };
+		CC47D514202234640008949D /* Point3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Point3D.hpp; sourceTree = "<group>"; };
+		CC47D516202247190008949D /* Plane.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
+		CC47D517202247190008949D /* Plane.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Plane.hpp; sourceTree = "<group>"; };
+		CC47D51C20236BBC0008949D /* Rectangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rectangle.cpp; sourceTree = "<group>"; };
+		CC47D51D20236BBC0008949D /* Rectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rectangle.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +45,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC0CB0762019256400060D53 /* GLUT.framework in Frameworks */,
+				CC0CB0742019255D00060D53 /* OpenGL.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +58,7 @@
 			children = (
 				CC0CB06820191A4C00060D53 /* BaseOpenGL */,
 				CC0CB06720191A4C00060D53 /* Products */,
+				CC0CB070201921C500060D53 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,8 +74,23 @@
 			isa = PBXGroup;
 			children = (
 				CC0CB06920191A4C00060D53 /* main.cpp */,
+				CC47D513202234640008949D /* Point.cpp */,
+				CC47D514202234640008949D /* Point3D.hpp */,
+				CC47D516202247190008949D /* Plane.cpp */,
+				CC47D517202247190008949D /* Plane.hpp */,
+				CC47D51C20236BBC0008949D /* Rectangle.cpp */,
+				CC47D51D20236BBC0008949D /* Rectangle.hpp */,
 			);
 			path = BaseOpenGL;
+			sourceTree = "<group>";
+		};
+		CC0CB070201921C500060D53 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CC0CB0752019256400060D53 /* GLUT.framework */,
+				CC0CB071201921C500060D53 /* OpenGL.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,6 +150,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC47D518202247190008949D /* Plane.cpp in Sources */,
+				CC47D515202234640008949D /* Point.cpp in Sources */,
+				CC47D51E20236BBC0008949D /* Rectangle.cpp in Sources */,
 				CC0CB06A20191A4C00060D53 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
