@@ -11,31 +11,20 @@ const unsigned int YMAX = 300;
 
 void displayMe(void)
 {
-//    glClear(GL_COLOR_BUFFER_BIT);
-//    glBegin(GL_POLYGON);
-//    glVertex3f(0.0, 0.0, 0.0);
-//    glVertex3f(0.5, 0.0, 0.0);
-//    glVertex3f(0.5, 0.5, 0.0);
-//    glVertex3f(0.0, 0.5, 0.0);
-//    glEnd();
-//    glFlush();
-    
-   
-    /* glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-    
-    glutInitWindowPosition(80, 80);
-    glutInitWindowSize(500,500);
-    
-    glutCreateWindow("A Simple OpenGL Program");*/
-    
+
     glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
-    gluOrtho2D( 0.0, 500.0, 500.0,0.0 );
+    gluOrtho2D( 0.0, XMAX, YMAX,0.0 );
     
     glBegin(GL_POINTS);
         glColor3f(1,0,0);
         glVertex2i(100,100);
+    glEnd();
+    
+    glBegin(GL_POINTS);
+        glColor3f(0,1,0);
+        glVertex2i(200,100);
     glEnd();
     glFlush();
 
@@ -104,7 +93,7 @@ int main(int argc, char** argv)
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE);
     glutInitWindowSize(XMAX, YMAX);
-    glutInitWindowPosition(100, 100); // Will need to look this up
+    glutInitWindowPosition(XMAX, YMAX); // Will need to look this up
     glutCreateWindow("Sphere");
     glutDisplayFunc(displayMe);
     glutMainLoop();
