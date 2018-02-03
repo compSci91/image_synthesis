@@ -13,6 +13,7 @@
 		CC47D515202234640008949D /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC47D513202234640008949D /* Point.cpp */; };
 		CC47D518202247190008949D /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC47D516202247190008949D /* Plane.cpp */; };
 		CC47D51E20236BBC0008949D /* Rectangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC47D51C20236BBC0008949D /* Rectangle.cpp */; };
+		CC47D52120237E5F0008949D /* Point2D.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC47D51F20237E5F0008949D /* Point2D.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -38,6 +39,8 @@
 		CC47D517202247190008949D /* Plane.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Plane.hpp; sourceTree = "<group>"; };
 		CC47D51C20236BBC0008949D /* Rectangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Rectangle.cpp; sourceTree = "<group>"; };
 		CC47D51D20236BBC0008949D /* Rectangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Rectangle.hpp; sourceTree = "<group>"; };
+		CC47D51F20237E5F0008949D /* Point2D.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Point2D.cpp; sourceTree = "<group>"; };
+		CC47D52020237E5F0008949D /* Point2D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Point2D.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +79,8 @@
 				CC0CB06920191A4C00060D53 /* main.cpp */,
 				CC47D513202234640008949D /* Point.cpp */,
 				CC47D514202234640008949D /* Point3D.hpp */,
+				CC47D51F20237E5F0008949D /* Point2D.cpp */,
+				CC47D52020237E5F0008949D /* Point2D.hpp */,
 				CC47D516202247190008949D /* Plane.cpp */,
 				CC47D517202247190008949D /* Plane.hpp */,
 				CC47D51C20236BBC0008949D /* Rectangle.cpp */,
@@ -152,6 +157,7 @@
 			files = (
 				CC47D518202247190008949D /* Plane.cpp in Sources */,
 				CC47D515202234640008949D /* Point.cpp in Sources */,
+				CC47D52120237E5F0008949D /* Point2D.cpp in Sources */,
 				CC47D51E20236BBC0008949D /* Rectangle.cpp in Sources */,
 				CC0CB06A20191A4C00060D53 /* main.cpp in Sources */,
 			);

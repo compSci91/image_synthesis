@@ -1,10 +1,19 @@
 #include "Rectangle.hpp"
+#include "Point2D.cpp"
 #include <stdlib.h>
 
 class Rectangle {
     
+private:
+    double s[2];
+    Point2D n[0];
+    Point2D origin;
     
 public:
+    Rectangle(Point2D origin){
+        this -> origin = origin;
+    }
+    
     void supersample(){ //not sure what this does
         const int PIXEL_WIDTH= 100; //how do I calculate this?
         const int PIXEL_HEIGHT = 100; //how do I calculate this?
@@ -27,6 +36,7 @@ public:
                         double xSamplePosition = xCoordinateOfPixel + (xCoordinateOfSubPixel + randomXCoordinate)/ SUBPIXEL_WIDTH;
                         double ySamplePosition = yCoordinateOfPixel + (yCoordinateOfSubPixel + randomYCoordinate)/ SUBPIXEL_HEIGHT;
 
+                        
                     }
                 }
             }
