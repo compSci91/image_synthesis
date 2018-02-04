@@ -30,6 +30,23 @@ void displayMe(void)
 
 }
 
+double determinant(int m[4][4]) {
+    return
+    m[0][3] * m[1][2] * m[2][1] * m[3][0] - m[0][2] * m[1][3] * m[2][1] * m[3][0] -
+    m[0][3] * m[1][1] * m[2][2] * m[3][0] + m[0][1] * m[1][3] * m[2][2] * m[3][0] +
+    m[0][2] * m[1][1] * m[2][3] * m[3][0] - m[0][1] * m[1][2] * m[2][3] * m[3][0] -
+    m[0][3] * m[1][2] * m[2][0] * m[3][1] + m[0][2] * m[1][3] * m[2][0] * m[3][1] +
+    m[0][3] * m[1][0] * m[2][2] * m[3][1] - m[0][0] * m[1][3] * m[2][2] * m[3][1] -
+    m[0][2] * m[1][0] * m[2][3] * m[3][1] + m[0][0] * m[1][2] * m[2][3] * m[3][1] +
+    m[0][3] * m[1][1] * m[2][0] * m[3][2] - m[0][1] * m[1][3] * m[2][0] * m[3][2] -
+    m[0][3] * m[1][0] * m[2][1] * m[3][2] + m[0][0] * m[1][3] * m[2][1] * m[3][2] +
+    m[0][1] * m[1][0] * m[2][3] * m[3][2] - m[0][0] * m[1][1] * m[2][3] * m[3][2] -
+    m[0][2] * m[1][1] * m[2][0] * m[3][3] + m[0][1] * m[1][2] * m[2][0] * m[3][3] +
+    m[0][2] * m[1][0] * m[2][1] * m[3][3] - m[0][0] * m[1][2] * m[2][1] * m[3][3] -
+    m[0][1] * m[1][0] * m[2][2] * m[3][3] + m[0][0] * m[1][1] * m[2][2] * m[3][3];
+}
+
+
 
 void display(){ //not sure what this does
 
@@ -92,6 +109,8 @@ void display(){ //not sure what this does
                     double yP = y00 + (b0 * s0 * y) + (b1 * s1 * y);
                     double zP = z00 + (c0 * s0 * z) + (c1 * s1 * z);
 
+            
+            //sphere, go red
                     if(pow(xP - xC, 2) + pow(yP - yC, 2) + pow(zP - zC, 2) - pow(r, 2) <= 0 ){
                       
                         glBegin(GL_POINTS);
@@ -101,7 +120,22 @@ void display(){ //not sure what this does
                         glVertex2i(X,Y);
                         glEnd();
                     } else {
-                    }
+            //plane, go green
+                        
+                        int m[4][4] = { {45, 172, 410, (int) xP},
+                                        {250, 250, 250, (int) yP},
+                                        {76, 391, 3, (int) zP},
+                                        {1, 1, 1, 1}};
+                        
+                        if(determinant(m) == 0 ){
+                            glBegin(GL_POINTS);
+                            glColor3f(0,1,0);
+                            //                            glVertex2i(100,100);
+                            cout << "(" << X << "," << Y << ")";
+                            glVertex2i(X,Y);
+                            glEnd();
+                        }
+                    } //end
 
 
              //   } // end N
@@ -115,9 +149,10 @@ void display(){ //not sure what this does
  glFlush();
 }
 
-void testDisplay(){
-    
-}
+//lifted shamelessy from: http://www.chegg.com/homework-help/questions-and-answers/find-determinant-4x4-matrix-c-q9622213
+
+
+
 
 int main(int argc, char** argv)
 {
