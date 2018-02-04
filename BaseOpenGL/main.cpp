@@ -73,6 +73,39 @@ double maximum (double a,double b,double c)
     return INT_MAX;
 }
 
+double minimum (double a,double b,double c)
+{
+    if(a<b)
+    {
+        if(a<c)
+        {    return a;
+        }
+        else if(b<a)
+        {
+            if(b<c)
+            {
+                return b;
+            }
+        }
+        else if(c<b)
+        {
+            if(c<a)
+            {
+                return c;
+            }
+        }
+    }
+    
+    return INT_MIN;
+}
+
+double absoluteValue(double a){
+    if(a<0){
+        a = -1 * a;
+    }
+    
+    return a;
+}
 
 
 void display(){ //not sure what this does
@@ -143,10 +176,12 @@ void display(){ //not sure what this does
                         glBegin(GL_POINTS);
                             glColor3f(1,0,0);
 //                            glVertex2i(100,100);
-                        cout << "(" << X << "," << Y << ")";
+                     
                         glVertex2i(X,Y);
                         glEnd();
-                    } else {
+                    }
+            
+            
             //plane, go green
                         
                         int m[4][4] = { {45, 172, 410, (int) xP},
@@ -158,13 +193,18 @@ void display(){ //not sure what this does
                             glBegin(GL_POINTS);
                             glColor3f(0,1,0);
                             //                            glVertex2i(100,100);
-                            cout << "(" << X << "," << Y << ")";
+                           
                             glVertex2i(X,Y);
                             glEnd();
                             
                             
-                        } else { // cube
-                            if( maximum(xP, yP, zP) - 500 <= 0 ){ // should be 125
+                        }
+            
+            double max = maximum(absoluteValue(xP), absoluteValue(yP), absoluteValue(zP));
+//            double min = minimum(absoluteValue(xP), absoluteValue(yP), absoluteValue(zP));
+
+            if(( -125<=xP && xP <= 125) && ( -125<=yP && yP <= 125)  ){
+                            // if( max <= 125 ){ // should be 125
                                 glBegin(GL_POINTS);
                                 glColor3f(0,0,1);
                                 //                            glVertex2i(100,100);
@@ -172,12 +212,10 @@ void display(){ //not sure what this does
                                 glVertex2i(X,Y);
                                 glEnd();
                             } // end if
-  
-                        } //end cube
-                    } //end plane
+
+            
             
                  
-
 
              //   } // end N
             //} // end M
@@ -191,6 +229,27 @@ void display(){ //not sure what this does
 //lifted shamelessy from: http://www.chegg.com/homework-help/questions-and-answers/find-determinant-4x4-matrix-c-q9622213
 
 
+
+void testDisplay(){
+    
+    glClear(GL_COLOR_BUFFER_BIT);
+    glMatrixMode( GL_PROJECTION );
+    glLoadIdentity();
+    gluOrtho2D( 0.0, XMAX, YMAX,0.0 );
+
+    
+    
+    glBegin(GL_POINTS);
+    glColor3f(0,0,1);
+    glVertex2i(100,200);
+    
+    
+    glColor3f(1,0,0);
+    glVertex2i(100,100);
+    glEnd();
+    
+    glFlush();
+}
 
 
 int main(int argc, char** argv)
