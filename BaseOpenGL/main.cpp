@@ -46,6 +46,33 @@ double determinant(int m[4][4]) {
     m[0][1] * m[1][0] * m[2][2] * m[3][3] + m[0][0] * m[1][1] * m[2][2] * m[3][3];
 }
 
+//stolen from http://www.cplusplus.com/forum/beginner/62895/
+double maximum (double a,double b,double c)
+{
+    if(a>b)
+    {
+        if(a>c)
+        {    return a;
+        }
+        else if(b>a)
+        {
+            if(b>c)
+            {
+                return b;
+            }
+        }
+        else if(c>b)
+        {
+            if(c>a)
+            {
+                return c;
+            }
+        }
+    }
+    
+    return INT_MAX;
+}
+
 
 
 void display(){ //not sure what this does
@@ -134,8 +161,22 @@ void display(){ //not sure what this does
                             cout << "(" << X << "," << Y << ")";
                             glVertex2i(X,Y);
                             glEnd();
-                        }
-                    } //end
+                            
+                            
+                        } else { // cube
+                            if( maximum(xP, yP, zP) - 500 <= 0 ){ // should be 125
+                                glBegin(GL_POINTS);
+                                glColor3f(0,0,1);
+                                //                            glVertex2i(100,100);
+                                cout << "(" << X << "," << Y << ")";
+                                glVertex2i(X,Y);
+                                glEnd();
+                            } // end if
+  
+                        } //end cube
+                    } //end plane
+            
+                 
 
 
              //   } // end N
@@ -143,9 +184,7 @@ void display(){ //not sure what this does
         } // end J
     } //end I
 
-//    glDrawPixels(XMAX, YMAX, GL_RGB, GL_UNSIGNED_INT, pixelColors );
-//
-//    glutSwapBuffers();
+
  glFlush();
 }
 
