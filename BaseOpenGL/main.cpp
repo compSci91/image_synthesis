@@ -209,7 +209,7 @@ void display(){ //not sure what this does
 //                                    glVertex2i(X,Y);
 //                                glEnd();
                 
-                blue++; 
+                blue++;
                             } // end if
 
             
@@ -221,7 +221,7 @@ void display(){ //not sure what this does
             
             glBegin(GL_POINTS);
                 glColor3f(red/4.0,green/4.0,blue/4.0);
-                glVertex2i(I,J);
+                glVertex2i(I,YMAX-J);
             glEnd();
         } // end J
     } //end I
