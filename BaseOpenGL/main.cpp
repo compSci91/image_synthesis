@@ -123,21 +123,23 @@ void display(){ //not sure what this does
     
 
 
-    const int M = 4;
-    const int N = 4;
+    const int M = 2;
+    const int N = 2;
 
     for(int I = 0;  I < XMAX; I++){
         for(int J = 0; J < YMAX; J++){
-          //  for(int m = 0; m <  M; m++){
-             //   for(int n=0; n < N; n++){
+            
+            float red = 0, green=0, blue=0;
+            for(int m = 0; m <  M; m++){
+                for(int n=0; n < N; n++){
                     double rX = ((double)rand()/(double)RAND_MAX);
                     double rY = ((double)rand()/(double)RAND_MAX);
 
-//                    double X = I + (m + rX)/ M;
-//                    double Y = J + (n + rY)/ N;
+                    double X = I + (m + rX)/ M;
+                    double Y = J + (n + rY)/ N;
             
-                    double X = I;
-                    double Y = J;
+//                    double X = I;
+//                    double Y = J;
 
                     double x = X / (double) XMAX;
                     double y = Y / (double) YMAX;
@@ -173,12 +175,12 @@ void display(){ //not sure what this does
             //sphere, go red
                     if(pow(xP - xC, 2) + pow(yP - yC, 2) + pow(zP - zC, 2) - pow(r, 2) <= 0 ){
                       
-                        glBegin(GL_POINTS);
-                            glColor3f(1,0,0);
-//                            glVertex2i(100,100);
-                     
-                        glVertex2i(X,Y);
-                        glEnd();
+//                        glBegin(GL_POINTS);
+//                            glColor3f(1,0,0);
+//                            glVertex2i(X,Y);
+//                        glEnd();
+                        
+                        red++;
                     }
             
             
@@ -190,36 +192,37 @@ void display(){ //not sure what this does
                                         {1, 1, 1, 1}};
                         
                         if(determinant(m) == 0 ){
-                            glBegin(GL_POINTS);
-                            glColor3f(0,1,0);
-                            //                            glVertex2i(100,100);
-                           
-                            glVertex2i(X,Y);
-                            glEnd();
+//                            glBegin(GL_POINTS);
+//                                glColor3f(0,1,0);
+//                                glVertex2i(X,Y);
+//                            glEnd();
+                            
+                            green++;
                             
                             
                         }
-            
-            double max = maximum(absoluteValue(xP), absoluteValue(yP), absoluteValue(zP));
-//            double min = minimum(absoluteValue(xP), absoluteValue(yP), absoluteValue(zP));
 
             //cube, go blue
             if(( -125<=xP && xP <= 125) && ( -125<=yP && yP <= 125)  ){ // z is always 0 in this example
-                            // if( max <= 125 ){ // should be 125
-                                glBegin(GL_POINTS);
-                                glColor3f(0,0,1);
-                                //                            glVertex2i(100,100);
-                                cout << "(" << X << "," << Y << ")";
-                                glVertex2i(X,Y);
-                                glEnd();
+//                                glBegin(GL_POINTS);
+//                                    glColor3f(0,0,1);
+//                                    glVertex2i(X,Y);
+//                                glEnd();
+                
+                blue++; 
                             } // end if
 
             
             
                  
 
-             //   } // end N
-            //} // end M
+                } // end N
+            } // end M
+            
+            glBegin(GL_POINTS);
+                glColor3f(red/4.0,green/4.0,blue/4.0);
+                glVertex2i(I,J);
+            glEnd();
         } // end J
     } //end I
 
@@ -255,8 +258,7 @@ void testDisplay(){
 
 int main(int argc, char** argv)
 {
-    
-   
+
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE);
     glutInitWindowSize(XMAX, YMAX);
@@ -266,18 +268,6 @@ int main(int argc, char** argv)
     glutMainLoop();
     return 0;
 
-    
-//    glutInit( &argc, argv );
-//    glutInitDisplayMode( GLUT_RGBA | GLUT_DOUBLE );
-//    glutInitWindowSize( XMAX, YMAX);
-//    glutCreateWindow( "GLUT" );
-//    glutDisplayFunc( display );
-//    glutMainLoop();
-    
-
-   
-    
-    
     }
 
 
