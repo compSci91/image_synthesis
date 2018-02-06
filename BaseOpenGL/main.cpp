@@ -9,26 +9,7 @@
 const unsigned int XMAX = 300;
 const unsigned int YMAX = 300;
 
-void displayMe(void)
-{
-
-    glClear(GL_COLOR_BUFFER_BIT);
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    gluOrtho2D( 0.0, XMAX, YMAX,0.0 );
-    
-    glBegin(GL_POINTS);
-        glColor3f(1,0,0);
-        glVertex2i(100,100);
-    glEnd();
-    
-    glBegin(GL_POINTS);
-        glColor3f(0,1,0);
-        glVertex2i(200,100);
-    glEnd();
-    glFlush();
-
-}
+//lifted shamelessy from: http://www.chegg.com/homework-help/questions-and-answers/find-determinant-4x4-matrix-c-q9622213
 
 double determinant(int m[4][4]) {
     return
@@ -46,7 +27,7 @@ double determinant(int m[4][4]) {
     m[0][1] * m[1][0] * m[2][2] * m[3][3] + m[0][0] * m[1][1] * m[2][2] * m[3][3];
 }
 
-//stolen from http://www.cplusplus.com/forum/beginner/62895/
+//citation:  from http://www.cplusplus.com/forum/beginner/62895/
 double maximum (double a,double b,double c)
 {
     if(a>b)
@@ -108,18 +89,13 @@ double absoluteValue(double a){
 }
 
 
-void display(){ //not sure what this does
-
-
-//    glClearColor( 0, 0, 0, 1 );
-//    glClear( GL_COLOR_BUFFER_BIT );
+void display(){
     
     glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode( GL_PROJECTION );
     glLoadIdentity();
     gluOrtho2D( 0.0, XMAX, YMAX,0.0 );
 
-//    unsigned int pixelColors[XMAX][YMAX][3];
     
 
 
@@ -137,15 +113,11 @@ void display(){ //not sure what this does
 
                     double X = I + (m + rX)/ M;
                     double Y = J + (n + rY)/ N;
-            
-//                    double X = I;
-//                    double Y = J;
+        
 
                     double x = X / (double) XMAX;
                     double y = Y / (double) YMAX;
-                    
-//                    int x = X / XMAX;
-//                    int y = Y / YMAX;
+                
                     
                     double z = 0;
                     
@@ -174,12 +146,6 @@ void display(){ //not sure what this does
             
             //sphere, go red
                     if(pow(xP - xC, 2) + pow(yP - yC, 2) + pow(zP - zC, 2) - pow(r, 2) <= 0 ){
-                      
-//                        glBegin(GL_POINTS);
-//                            glColor3f(1,0,0);
-//                            glVertex2i(X,Y);
-//                        glEnd();
-                        
                         red++;
                     }
             
@@ -192,22 +158,11 @@ void display(){ //not sure what this does
                                         {1, 1, 1, 1}};
                         
                         if(determinant(m) == 0 ){
-//                            glBegin(GL_POINTS);
-//                                glColor3f(0,1,0);
-//                                glVertex2i(X,Y);
-//                            glEnd();
-                            
                             green++;
-                            
-                            
                         }
 
             //cube, go blue
-            if(( -125<=xP && xP <= 125) && ( -125<=yP && yP <= 125)  ){ // z is always 0 in this example
-//                                glBegin(GL_POINTS);
-//                                    glColor3f(0,0,1);
-//                                    glVertex2i(X,Y);
-//                                glEnd();
+            if(( -125<=xP && xP <= 125) && ( -125<=yP && yP <= 125)  ){ // z is always 0 in this examplw
                 
                 blue++;
                             } // end if
@@ -230,30 +185,10 @@ void display(){ //not sure what this does
  glFlush();
 }
 
-//lifted shamelessy from: http://www.chegg.com/homework-help/questions-and-answers/find-determinant-4x4-matrix-c-q9622213
 
 
 
-void testDisplay(){
-    
-    glClear(GL_COLOR_BUFFER_BIT);
-    glMatrixMode( GL_PROJECTION );
-    glLoadIdentity();
-    gluOrtho2D( 0.0, XMAX, YMAX,0.0 );
 
-    
-    
-    glBegin(GL_POINTS);
-    glColor3f(0,0,1);
-    glVertex2i(100,200);
-    
-    
-    glColor3f(1,0,0);
-    glVertex2i(100,100);
-    glEnd();
-    
-    glFlush();
-}
 
 
 int main(int argc, char** argv)
