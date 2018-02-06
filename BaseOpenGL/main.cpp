@@ -203,7 +203,8 @@ void display(){ //not sure what this does
             double max = maximum(absoluteValue(xP), absoluteValue(yP), absoluteValue(zP));
 //            double min = minimum(absoluteValue(xP), absoluteValue(yP), absoluteValue(zP));
 
-            if(( -125<=xP && xP <= 125) && ( -125<=yP && yP <= 125)  ){
+            //cube, go blue
+            if(( -125<=xP && xP <= 125) && ( -125<=yP && yP <= 125)  ){ // z is always 0 in this example
                             // if( max <= 125 ){ // should be 125
                                 glBegin(GL_POINTS);
                                 glColor3f(0,0,1);
