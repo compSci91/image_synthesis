@@ -4,7 +4,6 @@
 #include <OpenGL/gl.h>
 #include "Point3D.hpp"
 #include "Sphere.hpp"
-#include <math.h>
 #include <GLUT/glut.h>
 
 const unsigned int XMAX = 500;
@@ -127,9 +126,7 @@ void display(){
                     
                     //STEP 2: 
                     Point3D p00 = Point3D(0,0,0);
-                    
                     Point3D n0 = Point3D(1, 0, 0);
-                  
                     Point3D n1 = Point3D(0, 1, 0);
                    
                     
@@ -138,9 +135,6 @@ void display(){
                     
                     
                     Point3D pC = Point3D(0, 0, 0);
-                    
-                    double r = 500;
-
                     Point3D pP = p00 + n0*(s0 * x) + n1*(s1 * y);
                     
 
