@@ -6,8 +6,8 @@
 #include <math.h>
 #include <GLUT/glut.h>
 
-const unsigned int XMAX = 300;
-const unsigned int YMAX = 300;
+const unsigned int XMAX = 500;
+const unsigned int YMAX = 500;
 
 //lifted shamelessy from: http://www.chegg.com/homework-help/questions-and-answers/find-determinant-4x4-matrix-c-q9622213
 
