@@ -144,11 +144,15 @@ void display(){
                     
                     
                     
-                    Sphere sphere = Sphere(centerOfSphere, 250);
+                    Sphere sphere = Sphere(centerOfSphere, 125);
             
             //sphere, go red
-                    if(sphere.contains(pP) ){
-                        red++;
+//                    if(sphere.contains(pP) ){
+//                        red++;
+//                    }
+                    
+                    if(sphere.intersects(nPE, pE)) {
+                        red++; 
                     }
                     
                     
