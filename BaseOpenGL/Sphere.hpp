@@ -23,6 +23,13 @@ public:
         return (point - center).dotProduct((point - center)) - pow(radius,2) <= 0;
     }
     
+    bool intersects(Point3D nPE, Point3D pE){
+        double b = nPE.dotProduct(center - pE);
+        double c = (center - pE).dotProduct((center - pE)) - pow(radius,2);
+        
+        return b >=0 && pow(b,2)-c>=0; 
+    }
+    
    
     
 };

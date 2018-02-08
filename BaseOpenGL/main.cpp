@@ -134,16 +134,24 @@ void display(){
                     double s1 = 500;
                     
                     
-                    Point3D centerOfSphere = Point3D(0, 0, 0);
-                    Point3D pointInTheViewPort = p00 + n0*(s0 * x) + n1*(s1 * y);
+                    Point3D centerOfSphere = Point3D(250, 250, 0);
+                    Point3D pP = p00 + n0*(s0 * x) + n1*(s1 * y);
                     
-
-                    Sphere sphere = Sphere(centerOfSphere, 500);
+                    Point3D pE = Point3D(250, 250, 250);
+                    
+                    Point3D nPE = (pP - pE).produceUnitVector(); 
+                    
+                    
+                    
+                    
+                    Sphere sphere = Sphere(centerOfSphere, 250);
             
             //sphere, go red
-                    if(sphere.contains(pointInTheViewPort) ){
+                    if(sphere.contains(pP) ){
                         red++;
                     }
+                    
+                    
             
             
 //            //plane, go green
