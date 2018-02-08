@@ -3,6 +3,7 @@
  */
 #include <OpenGL/gl.h>
 #include "Point3D.hpp"
+#include "Sphere.hpp"
 #include <math.h>
 #include <GLUT/glut.h>
 
@@ -143,9 +144,10 @@ void display(){
                     Point3D pP = p00 + n0*(s0 * x) + n1*(s1 * y);
                     
 
+                    Sphere sphere = Sphere(pC, 500);
             
             //sphere, go red
-                    if((pP - pC).dotProduct((pP - pC)) - pow(r,2) <= 0 ){
+                    if(sphere.contains(pP) ){
                         red++;
                     }
             
