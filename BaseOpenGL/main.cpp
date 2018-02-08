@@ -134,36 +134,36 @@ void display(){
                     double s1 = 500;
                     
                     
-                    Point3D pC = Point3D(0, 0, 0);
-                    Point3D pP = p00 + n0*(s0 * x) + n1*(s1 * y);
+                    Point3D centerOfSphere = Point3D(0, 0, 0);
+                    Point3D pointInTheViewPort = p00 + n0*(s0 * x) + n1*(s1 * y);
                     
 
-                    Sphere sphere = Sphere(pC, 500);
+                    Sphere sphere = Sphere(centerOfSphere, 500);
             
             //sphere, go red
-                    if(sphere.contains(pP) ){
+                    if(sphere.contains(pointInTheViewPort) ){
                         red++;
                     }
             
             
-            //plane, go green
-                    
-                    int m[4][4] = { {45, 172, 410, (int) pP.x},
-                        {250, 250, 250, (int) pP.y},
-                        {76, 391, 3, (int) pP.z},
-                        {1, 1, 1, 1}};
-                        
-                        if(determinant(m) == 0 ){
-                            green++;
-                        }
-
-            //cube, go blue
-            if(( -125<=pP.x && pP.x <= 125) && ( -125<=pP.y && pP.y <= 125)  ){ // z is always 0 in this examplw
-                
-                blue++;
-                            } // end if
-
-            
+//            //plane, go green
+//
+//                    int m[4][4] = { {45, 172, 410, (int) pP.x},
+//                        {250, 250, 250, (int) pP.y},
+//                        {76, 391, 3, (int) pP.z},
+//                        {1, 1, 1, 1}};
+//
+//                        if(determinant(m) == 0 ){
+//                            green++;
+//                        }
+//
+//            //cube, go blue
+//            if(( -125<=pP.x && pP.x <= 125) && ( -125<=pP.y && pP.y <= 125)  ){ // z is always 0 in this examplw
+//
+//                blue++;
+//                            } // end if
+//
+//
             
                  
 
