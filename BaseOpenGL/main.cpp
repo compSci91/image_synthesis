@@ -157,6 +157,12 @@ void display(){
                     }
                     
                     
+                    
+                    Plane plane = Plane(Point3D(250, 250, 0), Point3D(0, 1/sqrt(2), 1/sqrt(2)));
+                    
+                    if(plane.intersects(nPE, pE)){
+                        green++; 
+                    }
             
             
 //            //plane, go green

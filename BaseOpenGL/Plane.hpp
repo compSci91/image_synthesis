@@ -30,4 +30,12 @@ public:
         
         return t >=0;
     }
+    
+    double getIntersectionDistance(Point3D nPE, Point3D pE){
+        double denominator = nPE.dotProduct(directionVector);
+        
+        double t = (point - pE).dotProduct(directionVector) / denominator;
+        
+        return t;
+    }
 };
