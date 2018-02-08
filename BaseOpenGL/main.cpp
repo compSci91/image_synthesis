@@ -108,6 +108,9 @@ void display(){
             float red = 0, green=0, blue=0;
             for(int m = 0; m <  M; m++){
                 for(int n=0; n < N; n++){
+                    
+                    //STEP 1: FOR EVERY POINT IN THE DISPLAY, FIND THE CORRESPONDING
+                    // POINT IN THREE DIMENSIONAL SPACE
                     double rX = ((double)rand()/(double)RAND_MAX);
                     double rY = ((double)rand()/(double)RAND_MAX);
 
@@ -119,50 +122,47 @@ void display(){
                     double y = Y / (double) YMAX;
                 
                     
-                    double z = 0;
                     
-                    double x00 = 0, y00 = 0, z00 = 0;
-                    double a0 = 1;
-                    double b0 = 0;
-                    double c0 = 0;
                     
-                    double a1 = 0;
-                    double b1 = 1;
-                    double c1 = 0;
+                    //STEP 2: 
+                    Point3D p00 = Point3D(0,0,0);
+                    
+                    Point3D n0 = Point3D(1, 0, 0);
+                  
+                    Point3D n1 = Point3D(0, 1, 0);
+                   
                     
                     double s0 = 500;
                     double s1 = 500;
                     
-                    double xC = 0;
-                    double yC = 0;
-                    double zC = 0;
+                    
+                    Point3D pC = Point3D(0, 0, 0);
                     
                     double r = 500;
 
-                    double xP = x00 + (a0 * s0 * x) + (a1 * s1 * x);
-                    double yP = y00 + (b0 * s0 * y) + (b1 * s1 * y);
-                    double zP = z00 + (c0 * s0 * z) + (c1 * s1 * z);
+                    Point3D pP = p00 + n0*(s0 * x) + n1*(s1 * y);
+                    
 
             
             //sphere, go red
-                    if(pow(xP - xC, 2) + pow(yP - yC, 2) + pow(zP - zC, 2) - pow(r, 2) <= 0 ){
+                    if((pP - pC).dotProduct((pP - pC)) - pow(r,2) <= 0 ){
                         red++;
                     }
             
             
             //plane, go green
-                        
-                        int m[4][4] = { {45, 172, 410, (int) xP},
-                                        {250, 250, 250, (int) yP},
-                                        {76, 391, 3, (int) zP},
-                                        {1, 1, 1, 1}};
+                    
+                    int m[4][4] = { {45, 172, 410, (int) pP.x},
+                        {250, 250, 250, (int) pP.y},
+                        {76, 391, 3, (int) pP.z},
+                        {1, 1, 1, 1}};
                         
                         if(determinant(m) == 0 ){
                             green++;
                         }
 
             //cube, go blue
-            if(( -125<=xP && xP <= 125) && ( -125<=yP && yP <= 125)  ){ // z is always 0 in this examplw
+            if(( -125<=pP.x && pP.x <= 125) && ( -125<=pP.y && pP.y <= 125)  ){ // z is always 0 in this examplw
                 
                 blue++;
                             } // end if

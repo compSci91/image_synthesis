@@ -4,10 +4,10 @@
 using namespace std;
 
 class Point3D {
-    private:
+       public:
         double x, y, z;
     
-    public:
+
         Point3D(){
             
         }
@@ -19,6 +19,10 @@ class Point3D {
     
     Point3D operator-(const Point3D& point) const{
         return Point3D(this->x - point.x, this->y - point.y, this->z  - point.z);
+    }
+    
+    Point3D operator+(const Point3D& point) const{
+        return Point3D(this->x + point.x, this->y + point.y, this->z  + point.z);
     }
 
     

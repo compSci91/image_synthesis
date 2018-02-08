@@ -29,6 +29,7 @@
 		CC0CB06920191A4C00060D53 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		CC0CB071201921C500060D53 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		CC0CB0752019256400060D53 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		CC0D0682202CBDE60015EE2B /* Point3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Point3D.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +65,7 @@
 		CC0CB06820191A4C00060D53 /* BaseOpenGL */ = {
 			isa = PBXGroup;
 			children = (
+				CC0D0682202CBDE60015EE2B /* Point3D.hpp */,
 				CC0CB06920191A4C00060D53 /* main.cpp */,
 			);
 			path = BaseOpenGL;
