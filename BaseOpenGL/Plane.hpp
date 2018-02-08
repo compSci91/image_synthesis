@@ -1,51 +1,33 @@
-#include <iostream>
-#include <string>
-#include <math.h>
-#include "Point3D.hpp"
+#ifndef Plane_hpp
+#define Plane_hpp
 
-using namespace std;
+#include <stdio.h>
+
+#endif /* Plane_hpp */
 
 class Plane {
-
+    
 private:
     Point3D point;
-    int a[3][3];
-    Point3D n[3];
-    Point3D pc= Point3D(0,0,0);
-    double s[3];
+    Point3D directionVector;
     
 public:
-    
-    
-    Plane(Point3D point){
-        this->point = point;
-        a[0][2] = 0;
-        a[1][2] = 0;
-        a[2][2] = 0;
-        a[2][1] = 0;
-        a[0][0] = 0;
-        
-        n[0] = Point3D(0.00, 0.71, -0.71);
-        n[1] = Point3D(0.94, -0.23, -0.23);
-        n[2] = Point3D(0.33, 0.67, 0.67);
-        
-        s[0] = 5;
-        s[1] = 6;
-        s[2] = 7;
+    Plane(Point3D point, Point3D directionVector){
+        this-> point = point;
+        this->directionVector = directionVector;
     }
     
     
-    bool F(Point3D p){
-    
-        double total = 0;
+    bool intersects(Point3D nPE, Point3D pE){
         
-        for(int i=0; i<=2; i++){
-            total += a[i][2] * pow((n[i].dotProduct(p - pc) / s[i]), 2) + a[2][1]* (n[2].dotProduct(p - pc)) / s[2] + a[0][0];
+        
+        double denominator = nPE.dotProduct(directionVector);
+        if(denominator == 0){
+            return false;
         }
         
+        double t = (point - pE).dotProduct(directionVector) / denominator;
         
-        return total <= 0;
-            
-
+        return t >=0;
     }
 };

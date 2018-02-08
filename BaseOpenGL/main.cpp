@@ -3,6 +3,7 @@
  */
 #include <OpenGL/gl.h>
 #include "Point3D.hpp"
+#include "Plane.hpp"
 #include "Sphere.hpp"
 #include <GLUT/glut.h>
 
