@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <math>
 
 using namespace std;
 
@@ -35,6 +36,19 @@ class Point3D {
         return Point3D(this->x * scalar, this->y * scalar, this->z  * scalar);
 
     }
+    
+    Point3D produceUnitVector(){
+        double magnituteOfVector = calculateMagnitute();
+        
+        return Point3D(this->x / magnituteOfVector, this->y / magnituteOfVector, this->z  / magnituteOfVector);
+    }
+    
+    
+    private:
+        double calculateMagnitute() {
+            return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+        }
+    
    
     
         void print(){

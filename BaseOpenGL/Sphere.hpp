@@ -23,5 +23,7 @@ public:
         return (point - center).dotProduct((point - center)) - pow(radius,2) <= 0;
     }
     
+   
+    
 };
 
