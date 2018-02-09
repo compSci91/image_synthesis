@@ -30,6 +30,15 @@ public:
         return b >=0 && pow(b,2)-c>=0; 
     }
     
+    double getIntersectionDistance(Point3D nPE, Point3D pE){
+        double b = nPE.dotProduct(center - pE);
+        double c = (center - pE).dotProduct((center - pE)) - pow(radius,2);
+        
+        double t = b - sqrt(pow(b,2) -c);
+        
+        return t;
+    }
+    
    
     
 };

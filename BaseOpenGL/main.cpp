@@ -6,6 +6,8 @@
 #include "Plane.hpp"
 #include "Sphere.hpp"
 #include <GLUT/glut.h>
+#include <iostream>
+
 
 const unsigned int XMAX = 500;
 const unsigned int YMAX = 500;
@@ -89,7 +91,6 @@ double absoluteValue(double a){
     return a;
 }
 
-
 void display(){
     
     glClear(GL_COLOR_BUFFER_BIT);
@@ -126,10 +127,29 @@ void display(){
                     
                     
                     //STEP 2: 
-                    Point3D p00 = Point3D(0,0,0);
-                    Point3D n0 = Point3D(1, 0, 0);
-                    Point3D n1 = Point3D(0, 1, 0);
+//                    Point3D p00 = Point3D(0,0,0);
+//                    Point3D n0 = Point3D(1, 0, 0);
+//                    Point3D n1 = Point3D(0, 1, 0);
+                    
                    
+
+                    
+                    Point3D vView = Point3D(0, 0, -250);
+                    Point3D n2 = vView.produceUnitVector();
+ 
+                    Point3D vUp = Point3D(0, 1, 0);
+                    
+                    Point3D n0 = n2*vUp;
+                    
+                    Point3D n1 = n0 * n2;
+                    
+                    Point3D pE = Point3D(250, 250, 250);
+                    double d = 250;
+                    Point3D pC = pE + n2 * d;
+                    
+                    Point3D p00 = pC - (n0*(XMAX/2) + n1*(YMAX/2)); //<-- magic number is bad and you should feel bad.
+                   
+                    
                     
                     double s0 = 500;
                     double s1 = 500;
@@ -138,7 +158,6 @@ void display(){
                     Point3D centerOfSphere = Point3D(250, 250, 0);
                     Point3D pP = p00 + n0*(s0 * x) + n1*(s1 * y);
                     
-                    Point3D pE = Point3D(250, 250, 250);
                     
                     Point3D nPE = (pP - pE).produceUnitVector(); 
                     
@@ -146,24 +165,46 @@ void display(){
                     
                     
                     Sphere sphere = Sphere(centerOfSphere, 125);
+                    Plane plane = Plane(Point3D(250, 375, 0), Point3D(0, 1/sqrt(2), 1/sqrt(2)));
             
             //sphere, go red
 //                    if(sphere.contains(pP) ){
 //                        red++;
 //                    }
                     
-                    if(sphere.intersects(nPE, pE)) {
-                        red++; 
+                   
+                    bool sphereIntersects = sphere.intersects(nPE, pE);
+                    bool planeIntersects = plane.intersects(nPE, pE);
+                    
+                    if(sphereIntersects && !planeIntersects){
+                        red++;
+                    } else if(planeIntersects && !sphereIntersects) {
+                        green++;
+                    } else if(sphereIntersects && planeIntersects){
+                        //cout << "Both intersect! " << endl;
+                        double sphereIntersectionDistance = sphere.getIntersectionDistance(nPE, pE);
+                        double planeIntersectionDistance = plane.getIntersectionDistance(nPE, pE);
+
+//                        cout << "Sphere Intersection Distance : " << sphereIntersectionDistance << endl;
+//                        cout << "Plane Intersection Distance : " << planeIntersectionDistance << endl << endl;
+                        
+                        if(sphereIntersectionDistance <= planeIntersectionDistance){
+                            red++;
+                            
+                        } else if( planeIntersectionDistance < sphereIntersectionDistance) {
+                            green++;
+                        }
                     }
+
+                  
                     
                     
                     
-                    Plane plane = Plane(Point3D(250, 250, 0), Point3D(0, 1/sqrt(2), 1/sqrt(2)));
-                    
-                    if(plane.intersects(nPE, pE)){
-                        green++; 
-                    }
+                   
+   
             
+                    
+                 
             
 //            //plane, go green
 //

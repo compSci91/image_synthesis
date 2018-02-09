@@ -32,10 +32,18 @@ class Point3D {
                   this->z  * point.z;
     }
     
+    Point3D operator*(const Point3D& point){
+        return Point3D(this->y * point.z - this->z*point.y,
+                        -1 *(this->x * point.z - this->z*point.x),
+                            this->x*point.y - this->y * point.x);
+    }
+    
     Point3D operator*(const double& scalar) const{
         return Point3D(this->x * scalar, this->y * scalar, this->z  * scalar);
 
     }
+    
+  
     
     Point3D produceUnitVector(){
         double magnituteOfVector = calculateMagnitute();
@@ -44,6 +52,12 @@ class Point3D {
     }
     
     
+    void print(){
+        cout << "Point(X: " << x;
+        cout << " Y: " << y;
+        cout << " Z: " << z << ")" << endl;
+    }
+    
     private:
         double calculateMagnitute() {
             return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
@@ -51,9 +65,5 @@ class Point3D {
     
    
     
-        void print(){
-            cout << "Point(X: " << x;
-            cout << " Y: " << y;
-            cout << " Z: " << z << ")" << endl;
-        }
+    
 };
