@@ -99,6 +99,20 @@ void display(){
     gluOrtho2D( 0.0, XMAX, YMAX,0.0 );
 
     
+    Point3D vView = Point3D(0, 0, -250);
+    Point3D n2 = vView.produceUnitVector();
+    
+    Point3D vUp = Point3D(0, 1, 0);
+    
+    Point3D n0 = n2*vUp;
+    
+    Point3D n1 = n0 * n2;
+    
+    Point3D pE = Point3D(250, 250, 250);
+    double d = 250;
+    Point3D pC = pE + n2 * d;
+    
+    Point3D p00 = pC - (n0*(XMAX/2) + n1*(YMAX/2));
 
 
     const int M = 2;
@@ -126,31 +140,7 @@ void display(){
                     
                     
                     
-                    //STEP 2: 
-//                    Point3D p00 = Point3D(0,0,0);
-//                    Point3D n0 = Point3D(1, 0, 0);
-//                    Point3D n1 = Point3D(0, 1, 0);
-                    
-                   
-
-                    
-                    Point3D vView = Point3D(0, 0, -250);
-                    Point3D n2 = vView.produceUnitVector();
- 
-                    Point3D vUp = Point3D(0, 1, 0);
-                    
-                    Point3D n0 = n2*vUp;
-                    
-                    Point3D n1 = n0 * n2;
-                    
-                    Point3D pE = Point3D(250, 250, 250);
-                    double d = 250;
-                    Point3D pC = pE + n2 * d;
-                    
-                    Point3D p00 = pC - (n0*(XMAX/2) + n1*(YMAX/2)); //<-- magic number is bad and you should feel bad.
-                   
-                    
-                    
+                    //STEP 2:             
                     double s0 = 500;
                     double s1 = 500;
                     
@@ -181,12 +171,10 @@ void display(){
                     } else if(planeIntersects && !sphereIntersects) {
                         green++;
                     } else if(sphereIntersects && planeIntersects){
-                        //cout << "Both intersect! " << endl;
                         double sphereIntersectionDistance = sphere.getIntersectionDistance(nPE, pE);
                         double planeIntersectionDistance = plane.getIntersectionDistance(nPE, pE);
 
-//                        cout << "Sphere Intersection Distance : " << sphereIntersectionDistance << endl;
-//                        cout << "Plane Intersection Distance : " << planeIntersectionDistance << endl << endl;
+
                         
                         if(sphereIntersectionDistance <= planeIntersectionDistance){
                             red++;
@@ -195,38 +183,6 @@ void display(){
                             green++;
                         }
                     }
-
-                  
-                    
-                    
-                    
-                   
-   
-            
-                    
-                 
-            
-//            //plane, go green
-//
-//                    int m[4][4] = { {45, 172, 410, (int) pP.x},
-//                        {250, 250, 250, (int) pP.y},
-//                        {76, 391, 3, (int) pP.z},
-//                        {1, 1, 1, 1}};
-//
-//                        if(determinant(m) == 0 ){
-//                            green++;
-//                        }
-//
-//            //cube, go blue
-//            if(( -125<=pP.x && pP.x <= 125) && ( -125<=pP.y && pP.y <= 125)  ){ // z is always 0 in this examplw
-//
-//                blue++;
-//                            } // end if
-//
-//
-            
-                 
-
                 } // end N
             } // end M
             
