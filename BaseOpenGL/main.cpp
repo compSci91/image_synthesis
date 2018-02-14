@@ -99,21 +99,23 @@ void display(){
     gluOrtho2D( 0.0, XMAX, YMAX,0.0 );
 
     
-    Point3D vView = Point3D(0, 0, -250);
+    //    Point3D pE = Point3D(250, 250, 250);
+    Point3D pE = Point3D(0, 250, 250);
+   // Point3D vView = Point3D(0, 0, -250);
+    Point3D vView = Point3D(250, 0, -250);
     Point3D n2 = vView.produceUnitVector();
     
     Point3D vUp = Point3D(0, 1, 0);
-    
     Point3D n0 = n2*vUp;
     
     Point3D n1 = n0 * n2;
     
-    Point3D pE = Point3D(250, 250, 250);
+   
     double d = 250;
     Point3D pC = pE + n2 * d;
     
     Point3D p00 = pC - (n0*(XMAX/2) + n1*(YMAX/2));
-
+   // Point3D p00 = Point3D(0, 250, 0);
 
     const int M = 2;
     const int N = 2;
@@ -140,7 +142,7 @@ void display(){
                     
                     
                     
-                    //STEP 2:             
+                    //STEP 2:
                     double s0 = 500;
                     double s1 = 500;
                     
