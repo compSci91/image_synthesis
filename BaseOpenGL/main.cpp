@@ -99,10 +99,8 @@ void display(){
     gluOrtho2D( 0.0, XMAX, YMAX,0.0 );
 
     
-    //    Point3D pE = Point3D(250, 250, 250);
-    Point3D pE = Point3D(0, 250, 250);
-   // Point3D vView = Point3D(0, 0, -250);
-    Point3D vView = Point3D(250, 0, -250);
+    Point3D pE = Point3D(250, 250, 250);
+    Point3D vView = Point3D(0, 0, -250);
     Point3D n2 = vView.produceUnitVector();
     
     Point3D vUp = Point3D(0, 1, 0);
@@ -159,32 +157,34 @@ void display(){
                     Sphere sphere = Sphere(centerOfSphere, 125);
                     Plane plane = Plane(Point3D(250, 375, 0), Point3D(0, 1/sqrt(2), 1/sqrt(2)));
             
-            //sphere, go red
-//                    if(sphere.contains(pP) ){
-//                        red++;
-//                    }
-                    
                    
                     bool sphereIntersects = sphere.intersects(nPE, pE);
                     bool planeIntersects = plane.intersects(nPE, pE);
                     
-                    if(sphereIntersects && !planeIntersects){
+                    if(sphereIntersects) {
                         red++;
-                    } else if(planeIntersects && !sphereIntersects) {
-                        green++;
-                    } else if(sphereIntersects && planeIntersects){
-                        double sphereIntersectionDistance = sphere.getIntersectionDistance(nPE, pE);
-                        double planeIntersectionDistance = plane.getIntersectionDistance(nPE, pE);
-
-
-                        
-                        if(sphereIntersectionDistance <= planeIntersectionDistance){
-                            red++;
-                            
-                        } else if( planeIntersectionDistance < sphereIntersectionDistance) {
-                            green++;
-                        }
                     }
+                    
+                    
+//                    if(sphereIntersects && !planeIntersects){
+//                        red++;
+//                    }
+//
+//                    else if(planeIntersects && !sphereIntersects) {
+//                        green++;
+//                    } else if(sphereIntersects && planeIntersects){
+//                        double sphereIntersectionDistance = sphere.getIntersectionDistance(nPE, pE);
+//                        double planeIntersectionDistance = plane.getIntersectionDistance(nPE, pE);
+//
+//
+//
+//                        if(sphereIntersectionDistance <= planeIntersectionDistance){
+//                            red++;
+//
+//                        } else if( planeIntersectionDistance < sphereIntersectionDistance) {
+//                            green++;
+//                        }
+//                    }
                 } // end N
             } // end M
             
