@@ -121,6 +121,8 @@ void display(){
     for(int I = 0;  I < XMAX; I++){
         for(int J = 0; J < YMAX; J++){
             
+            Color colorForPixel = Color(0, 0, 0);
+            
             float red = 0, green=0, blue=0;
             for(int m = 0; m <  M; m++){
                 for(int n=0; n < N; n++){
@@ -155,41 +157,30 @@ void display(){
                     
                     
                     Sphere sphere = Sphere(centerOfSphere, 125);
-                    Plane plane = Plane(Point3D(250, 375, 0), Point3D(0, 1/sqrt(2), 1/sqrt(2)));
-            
+ 
                    
                     bool sphereIntersects = sphere.intersects(nPE, pE);
-                    bool planeIntersects = plane.intersects(nPE, pE);
                     
                     if(sphereIntersects) {
-                        red++;
+                        double t = sphere.getIntersectionDistance(nPE, pE);
+                        Point3D hitPoint = pE + nPE * t;
+                        Color whiteColor = Color(1,1,1);
+                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pE, hitPoint, whiteColor);
+                        
+//                        cout << "Diffuse Color: ( " << diffuseColorFromSphere.red << ", " << diffuseColorFromSphere.green << ", " << diffuseColorFromSphere.blue << ")" << endl;
+                       
+                        colorForPixel = colorForPixel + diffuseColorFromSphere;
+                        //red++;
                     }
                     
                     
-//                    if(sphereIntersects && !planeIntersects){
-//                        red++;
-//                    }
-//
-//                    else if(planeIntersects && !sphereIntersects) {
-//                        green++;
-//                    } else if(sphereIntersects && planeIntersects){
-//                        double sphereIntersectionDistance = sphere.getIntersectionDistance(nPE, pE);
-//                        double planeIntersectionDistance = plane.getIntersectionDistance(nPE, pE);
-//
-//
-//
-//                        if(sphereIntersectionDistance <= planeIntersectionDistance){
-//                            red++;
-//
-//                        } else if( planeIntersectionDistance < sphereIntersectionDistance) {
-//                            green++;
-//                        }
-//                    }
+
                 } // end N
             } // end M
             
             glBegin(GL_POINTS);
-                glColor3f(red/4.0,green/4.0,blue/4.0);
+//                glColor3f(red/4.0,green/4.0,blue/4.0);
+            glColor3f(colorForPixel.red/4.0,colorForPixel.green/4.0,colorForPixel.blue/4.0);
                 glVertex2i(I,YMAX-J);
             glEnd();
         } // end J
