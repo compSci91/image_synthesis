@@ -11,6 +11,7 @@ class Sphere {
 private:
     Point3D center;
     double radius;
+    double Ch0, Ch1, Ch2, Ch3; 
     
     
 public:

@@ -10,6 +10,7 @@
 		CC0CB06A20191A4C00060D53 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC0CB06920191A4C00060D53 /* main.cpp */; };
 		CC0CB0742019255D00060D53 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC0CB071201921C500060D53 /* OpenGL.framework */; };
 		CC0CB0762019256400060D53 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC0CB0752019256400060D53 /* GLUT.framework */; };
+		CC2F52FB20375539004F73C5 /* Color.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CC2F52F920375539004F73C5 /* Color.cpp */; };
 		CCBC761D202CF70E008291D3 /* Plane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCBC761B202CF70E008291D3 /* Plane.cpp */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,8 @@
 		CC0CB071201921C500060D53 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		CC0CB0752019256400060D53 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
 		CC0D0682202CBDE60015EE2B /* Point3D.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Point3D.hpp; sourceTree = "<group>"; };
+		CC2F52F920375539004F73C5 /* Color.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Color.cpp; sourceTree = "<group>"; };
+		CC2F52FA20375539004F73C5 /* Color.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Color.hpp; sourceTree = "<group>"; };
 		CCBC7614202CCF89008291D3 /* Sphere.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Sphere.hpp; sourceTree = "<group>"; };
 		CCBC761B202CF70E008291D3 /* Plane.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Plane.cpp; sourceTree = "<group>"; };
 		CCBC761C202CF70E008291D3 /* Plane.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Plane.hpp; sourceTree = "<group>"; };
@@ -74,6 +77,8 @@
 				CC0CB06920191A4C00060D53 /* main.cpp */,
 				CCBC761B202CF70E008291D3 /* Plane.cpp */,
 				CCBC761C202CF70E008291D3 /* Plane.hpp */,
+				CC2F52F920375539004F73C5 /* Color.cpp */,
+				CC2F52FA20375539004F73C5 /* Color.hpp */,
 			);
 			path = BaseOpenGL;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCBC761D202CF70E008291D3 /* Plane.cpp in Sources */,
+				CC2F52FB20375539004F73C5 /* Color.cpp in Sources */,
 				CC0CB06A20191A4C00060D53 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
