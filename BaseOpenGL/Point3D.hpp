@@ -51,6 +51,10 @@ class Point3D {
         return Point3D(this->x / magnituteOfVector, this->y / magnituteOfVector, this->z  / magnituteOfVector);
     }
     
+    double calculateMagnitute() {
+        return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
+    }
+    
     
     void print(){
         cout << "Point(X: " << x;
@@ -58,10 +62,7 @@ class Point3D {
         cout << " Z: " << z << ")" << endl;
     }
     
-    private:
-        double calculateMagnitute() {
-            return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2));
-        }
+    
     
    
     

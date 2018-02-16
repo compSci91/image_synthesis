@@ -13,11 +13,14 @@
 
 #endif /* Color_hpp */
 
+
+using namespace std;
+
 class Color {
-    private:
-        double red, green, blue;
-    
 public:
+    
+    double red, green, blue;
+    
     Color(){
         red = green = blue = 0;
     }

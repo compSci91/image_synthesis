@@ -6,18 +6,22 @@
 #endif /* Sphere_hpp */
 
 #include <math.h>
+#include "Color.hpp"
 
 class Sphere {
 private:
     Point3D center;
     double radius;
-    double Ch0, Ch1, Ch2, Ch3; 
+    double diffuseReflectionCoeffecient;
+    Color diffuseColor; 
     
     
 public:
     Sphere(Point3D center, double radius){
         this -> center = center;
         this -> radius = radius;
+        this -> diffuseColor = Color(1, 0, 0);
+        this -> diffuseReflectionCoeffecient = 1;
     }
     
     bool contains(Point3D point){
@@ -40,7 +44,18 @@ public:
         return t;
     }
     
-   
+    
+    Color calculateDiffuseColor(Point3D lightPoint, Point3D hitPoint, Color lightColor){
+        Point3D normalVector = (hitPoint - center).produceUnitVector();
+       // return lightColor*diffuseColor*diffuseReflectionCoeffecient*attenuation(lightPoint, hitPoint);
+        return lightColor * attenuation(lightPoint, hitPoint) * diffuseReflectionCoeffecient * diffuseColor * (normalVector.dotProduct(lightPoint)); 
+    }
+    
+private:
+    double attenuation(Point3D lightPoint, Point3D hitPoint){
+        return 1 / ((pow((lightPoint - hitPoint).calculateMagnitute(), 2) + 1));
+    }
+    
     
 };
 
