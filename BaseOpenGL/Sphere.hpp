@@ -12,8 +12,9 @@ class Sphere {
 private:
     Point3D center;
     double radius;
-    double diffuseReflectionCoeffecient;
-    Color diffuseColor; 
+    double diffuseReflectionCoeffecient, specularColorCoefficient;
+    Color diffuseColor;
+    Color specularColor;
     
     
 public:
@@ -21,7 +22,10 @@ public:
         this -> center = center;
         this -> radius = radius;
         this -> diffuseColor = Color(1, 0, 0);
+        this -> specularColor = Color(1, 1, 1);
+        
         this -> diffuseReflectionCoeffecient = 1;
+        this -> specularColorCoefficient = 1;
     }
     
     bool contains(Point3D point){
@@ -50,6 +54,18 @@ public:
         Point3D normalizedLightPoint = lightPoint.produceUnitVector();
        // return lightColor*diffuseColor*diffuseReflectionCoeffecient*attenuation(lightPoint, hitPoint);
         return lightColor * attenuation(lightPoint, hitPoint) * diffuseReflectionCoeffecient * diffuseColor * (normalVector.dotProduct(normalizedLightPoint));
+    }
+    
+    Color calculateSpecularColor(Point3D lightVector, Point3D hitPoint, Point3D viewVector, double specularReflectionExponent, Color lightColor){
+         Point3D normalVector = (hitPoint - center).produceUnitVector();
+        Point3D reflectionVector = lightVector - normalVector* 2*(lightVector.dotProduct(normalVector));
+        
+        double cosineOfAngle = reflectionVector.produceUnitVector().dotProduct(viewVector.produceUnitVector());
+        
+        double specularReflectionFalloff =  pow(cosineOfAngle, specularReflectionExponent);
+        
+        return lightColor*specularColor*specularReflectionFalloff*specularColorCoefficient*specularReflectionFalloff;
+        
     }
     
 private:

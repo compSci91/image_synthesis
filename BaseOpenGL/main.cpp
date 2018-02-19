@@ -100,6 +100,8 @@ void display(){
 
     
     Point3D pE = Point3D(250, 250, 250);
+    Point3D pL = Point3D(250, 500, 250);
+    
     Point3D vView = Point3D(0, 0, -250);
     Point3D n2 = vView.produceUnitVector();
     
@@ -151,25 +153,37 @@ void display(){
                     
                     
                     Point3D nPE = (pP - pE).produceUnitVector(); 
-                    
-                    
-                    
+                    Point3D nLE = (pP - pL).produceUnitVector();
                     
                     Sphere sphere = Sphere(centerOfSphere, 125);
  
                    
-                    bool sphereIntersects = sphere.intersects(nPE, pE);
+                    bool sphereIntersectsWithEyeVector = sphere.intersects(nPE, pE);
                     
-                    if(sphereIntersects) {
+                    if(sphereIntersectsWithEyeVector) {
                         double t = sphere.getIntersectionDistance(nPE, pE);
-                        Point3D hitPoint = pE + nPE * t;
+                        Point3D hitPointFromEye = pE + nPE * t;
                         Color whiteColor = Color(1,1,1);
-                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pE, hitPoint, whiteColor);
-                        
-
+                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pE, hitPointFromEye, whiteColor);
                        
                         colorForPixel = colorForPixel + diffuseColorFromSphere;
+                        
+                        //need to calculate specular color
                     }
+                    
+                    bool sphereIntersectsWithLightVector = sphere.intersects(nLE, pL);
+                    
+                    if(sphereIntersectsWithLightVector){
+                        double t = sphere.getIntersectionDistance(nLE, pL);
+                        Point3D hitPointFromLight = pL + nLE * t;
+                        Color whiteColor = Color(1,1,1);
+                        double specularReflectionExponent = 100;
+                        Color specularColorFromSphere = sphere.calculateSpecularColor(pL, hitPointFromLight, pE, specularReflectionExponent, whiteColor);
+                        
+                        colorForPixel = colorForPixel + specularColorFromSphere;
+                    }
+                    
+
                     
                     
 
@@ -188,7 +202,16 @@ void display(){
 }
 
 
-
+Point3D F(Point3D p, Point3D pC, int a[3][3], int s[2], Point3D n[3] ){
+    Point3D finalPoint = Point3D(0, 0, 0);
+    
+    for(int i = 0; i <=2; i++){
+        
+        finalPoint = finalPoint + n[i]*(2*a[i][2]*n[i].dotProduct(p - pC) / pow(s[i], 2)) + n[2]*(a[2][1]/s[2]);
+    }
+    
+    return finalPoint;
+}
 
 
 
@@ -203,6 +226,19 @@ int main(int argc, char** argv)
     glutCreateWindow("Sphere");
     glutDisplayFunc(display);
     glutMainLoop();
+    
+//    Point3D pH = Point3D(5,16.01,7.95);
+//    Point3D pC = Point3D(5,8,12);
+//    int a[3][3] = {{-1, 0, 1}, {0, 0, 1}, {0, 0, 1}};
+//
+//    cout << a[2][0] << endl;
+//    int s[3] = {9, 5, 3};
+//
+//    Point3D n[3] = {Point3D(0.00,0.89,-0.45), Point3D(0.96,-0.13,-0.26), Point3D(0.29,0.43,0.86)};
+//
+//    Point3D returnedPoint = F(pH, pC, a, s, n).produceUnitVector();
+//
+//    returnedPoint.print();
     return 0;
 
     }
