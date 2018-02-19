@@ -3,8 +3,8 @@
  */
 #include <OpenGL/gl.h>
 #include "Point3D.hpp"
-#include "Plane.hpp"
 #include "Sphere.hpp"
+#include "Plane.hpp"
 #include <GLUT/glut.h>
 #include <iostream>
 
@@ -99,6 +99,7 @@ void display(){
     gluOrtho2D( 0.0, XMAX, YMAX,0.0 );
 
     
+//    Point3D pE = Point3D(250, 250, 250);
     Point3D pE = Point3D(250, 250, 250);
     Point3D pL = Point3D(250, 500, 250);
     
@@ -148,15 +149,16 @@ void display(){
                     double s1 = 500;
                     
                     
-                    Point3D centerOfSphere = Point3D(250, 250, 0);
+                   
                     Point3D pP = p00 + n0*(s0 * x) + n1*(s1 * y);
                     
                     
                     Point3D nPE = (pP - pE).produceUnitVector(); 
                     Point3D nLE = (pP - pL).produceUnitVector();
                     
+                    Point3D centerOfSphere = Point3D(250, 250, 0);
                     Sphere sphere = Sphere(centerOfSphere, 125);
- 
+                    Plane plane = Plane(Point3D(250, 0, 0), Point3D(0, 1 , 1)); 
                    
                     bool sphereIntersectsWithEyeVector = sphere.intersects(nPE, pE);
                     
@@ -183,6 +185,42 @@ void display(){
                         colorForPixel = colorForPixel + specularColorFromSphere;
                     }
                     
+                    
+                   
+                    
+                  
+                    
+                    
+                    bool sphereIntersects = sphere.intersects(nPE, pE);
+                    bool planeIntersects = plane.intersects(nPE, pE);
+//
+//                    if(sphereIntersects && !planeIntersects){
+//                       // red++;
+//                    } else
+                    
+                        
+                    if(planeIntersects && !sphereIntersects) {
+                        double t = plane.getIntersectionDistance(nPE, pE);
+                        Point3D hitPointFromEye = pE + nPE * t;
+                        Color whiteColor = Color(1,1,1);
+                        Color diffuseColorFromPlane = plane.calculateDiffuseColor(pE, hitPointFromEye, whiteColor);
+                        
+                        colorForPixel = colorForPixel + diffuseColorFromPlane;
+                        //colorForPixel = colorForPixel + diffuseColorFromPlane;
+                    }
+                    
+//                    else if(sphereIntersects && planeIntersects){
+//                        double sphereIntersectionDistance = sphere.getIntersectionDistance(nPE, pE);
+//                        double planeIntersectionDistance = plane.getIntersectionDistance(nPE, pE);
+//
+                        
+                        
+//                        if(sphereIntersectionDistance <= planeIntersectionDistance){
+//                            red++;
+//
+//                        } else if( planeIntersectionDistance < sphereIntersectionDistance) {
+//                            green++;
+                       // }
 
                     
                     

@@ -13,6 +13,7 @@
 
 #endif /* Color_hpp */
 
+#pragma once
 
 using namespace std;
 
