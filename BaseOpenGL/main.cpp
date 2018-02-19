@@ -174,17 +174,18 @@ void display(){
                     }
                     
                     bool sphereIntersectsWithLightVector = sphere.intersects(nLE, pL);
-                    
+
                     if(sphereIntersectsWithLightVector){
                         double t = sphere.getIntersectionDistance(nLE, pL);
                         Point3D hitPointFromLight = pL + nLE * t;
                         Color whiteColor = Color(1,1,1);
-                        double specularReflectionExponent = 100;
+                        double specularReflectionExponent = 10;
                         Color specularColorFromSphere = sphere.calculateSpecularColor(pL, hitPointFromLight, pE, specularReflectionExponent, whiteColor);
-                        
+
                         colorForPixel = colorForPixel + specularColorFromSphere;
+                        //colorForPixel = specularColorFromSphere;
                     }
-                    
+
                     
                    
                     
@@ -277,6 +278,19 @@ int main(int argc, char** argv)
 //    Point3D returnedPoint = F(pH, pC, a, s, n).produceUnitVector();
 //
 //    returnedPoint.print();
+    
+//    Point3D pH = Point3D(26, 35, 57);
+//    Point3D pL = Point3D(34, 59, 93);
+//    Point3D nLH = (pL-pH).produceUnitVector();
+//
+//    Sphere sphere = Sphere(Point3D(16, 5, 12), 11);
+//
+//    if(sphere.intersects(nLH, pH)){
+//        cout << "Intersection distance is: " << sphere.getIntersectionDistance(nLH, pH) << endl;
+//    }
+//        cout << "There is no intersection point." << endl;
+//    cout << "Intersection distance is: " << sphere.getIntersectionDistance(nLH, pH) << endl;
+    
     return 0;
 
     }

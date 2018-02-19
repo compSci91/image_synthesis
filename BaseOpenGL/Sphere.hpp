@@ -58,9 +58,13 @@ public:
     
     Color calculateSpecularColor(Point3D lightVector, Point3D hitPoint, Point3D viewVector, double specularReflectionExponent, Color lightColor){
          Point3D normalVector = (hitPoint - center).produceUnitVector();
-        Point3D reflectionVector = lightVector - normalVector* 2*(lightVector.dotProduct(normalVector));
+        Point3D reflectionVector = normalVector* 2*(lightVector.dotProduct(normalVector)) - lightVector;
         
         double cosineOfAngle = reflectionVector.produceUnitVector().dotProduct(viewVector.produceUnitVector());
+        
+        if(cosineOfAngle < 0 ){ 
+            cosineOfAngle = 0;
+        }
         
         double specularReflectionFalloff =  pow(cosineOfAngle, specularReflectionExponent);
         
