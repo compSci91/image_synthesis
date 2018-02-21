@@ -59,7 +59,8 @@ public:
         Vector normalVector = (hitPoint - center).produceUnitVector();
         Vector lightVector = (lightPoint-hitPoint).produceUnitVector();
         
-        Vector reflectionVector = normalVector * 2 * (lightVector.dotProduct(normalVector)) - lightVector;
+        
+        Vector reflectionVector = lightVector - normalVector * 2 * (lightVector.dotProduct(normalVector));
         
         Vector viewVector = (eyePoint - hitPoint).produceUnitVector(); 
         double cosineOfAngle = reflectionVector.produceUnitVector().dotProduct(viewVector.produceUnitVector());
