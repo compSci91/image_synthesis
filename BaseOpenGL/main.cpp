@@ -174,23 +174,13 @@ void display(){
                     
                     Vector specularNLE = (pP - specularPL).produceUnitVector();
                     
-//                     bool sphereIntersectsWithLightVector = sphere.intersects(nLE, pL);
                     
                     
                      bool sphereIntersectsWithLightVector = sphere.intersects(specularNLE, specularPL);
                     
 
 
-                    if(sphereIntersectsWithLightVector){
-//                        double t = sphere.getIntersectionDistance(nLE, pL);
-//                        Point3D hitPointFromLight = pL + nLE * t;
-//                        Color whiteColor = Color(1,1,1);
-//                        double specularReflectionExponent = 10;
-//                        Color specularColorFromSphere = sphere.calculateSpecularColor(pL, hitPointFromLight, pE, specularReflectionExponent, whiteColor);
-//
-//                        colorForPixel = colorForPixel + specularColorFromSphere;
-                        
-                        
+                    if(sphereIntersectsWithLightVector){                        
                         double t = sphere.getIntersectionDistance(specularNLE, specularPL);
                         Point3D hitPointFromLight = specularPL + specularNLE * t;
                         Color whiteColor = Color(1,1,1);

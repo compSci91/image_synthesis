@@ -52,7 +52,6 @@ public:
     Color calculateDiffuseColor(Point3D lightPoint, Point3D hitPoint, Color lightColor){
         Vector normalVector = (hitPoint - center).produceUnitVector();
         Vector normalizedLightPoint = (lightPoint-hitPoint).produceUnitVector();
-       //return lightColor * attenuation(lightPoint, hitPoint) * diffuseReflectionCoeffecient * diffuseColor * (normalVector.dotProduct(normalizedLightPoint));
         return lightColor  * diffuseReflectionCoeffecient * diffuseColor * (normalVector.dotProduct(normalizedLightPoint));
     }
     
