@@ -201,7 +201,9 @@ void display(){
                         double t = plane.getIntersectionDistance(nPE, pE);
                         Point3D hitPointFromEye = pE + nPE * t;
                         Color whiteColor = Color(1,1,1);
-                        Color diffuseColorFromPlane = plane.calculateDiffuseColor(pE, hitPointFromEye, whiteColor);
+                        Color diffuseColorFromPlane = plane.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
+
+//                        Color diffuseColorFromPlane = plane.calculateDiffuseColor(pE, hitPointFromEye, whiteColor);
 
                         colorForPixel = colorForPixel + diffuseColorFromPlane;
                     }
