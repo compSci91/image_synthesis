@@ -51,18 +51,18 @@ public:
         return t;
     }
     
-//    Color calculateDiffuseColor(Vector lightPoint, Point3D hitPoint, Color lightColor){
-//        Vector normalVector = directionVector.produceUnitVector();
-//        Vector normalizedLightPoint = lightPoint.produceUnitVector();
-//        // return lightColor*diffuseColor*diffuseReflectionCoeffecient*attenuation(lightPoint, hitPoint);
-//        return lightColor * diffuseReflectionCoeffecient * this->diffuseColor * (normalVector.dotProduct(normalizedLightPoint)) * attenuation(lightPoint, hitPoint);
-//    }
-//
-//private:
-//    double attenuation(Vector lightPoint, Point3D hitPoint){
-//        double magnitude = ((lightPoint - hitPoint).calculateMagnitute());
-//        double attenuation = 300 / magnitude;
-//
-//        return attenuation;
-//    }
+    Color calculateDiffuseColor(Point3D lightPoint, Point3D hitPoint, Color lightColor){
+        Vector normalVector = directionVector.produceUnitVector();
+        Vector normalizedLightPointVector = (lightPoint-hitPoint).produceUnitVector();
+        // return lightColor*diffuseColor*diffuseReflectionCoeffecient*attenuation(lightPoint, hitPoint);
+        return lightColor * diffuseReflectionCoeffecient * this->diffuseColor * (normalVector.dotProduct(normalizedLightPointVector)) * attenuation(lightPoint, hitPoint);
+    }
+
+private:
+    double attenuation(Point3D lightPoint, Point3D hitPoint){
+        double magnitude = ((lightPoint - hitPoint).calculateMagnitute());
+        double attenuation = 300 / magnitude;
+
+        return attenuation;
+    }
 };

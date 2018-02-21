@@ -180,7 +180,7 @@ void display(){
                     
 
 
-                    if(sphereIntersectsWithLightVector){                        
+                    if(sphereIntersectsWithLightVector){
                         double t = sphere.getIntersectionDistance(specularNLE, specularPL);
                         Point3D hitPointFromLight = specularPL + specularNLE * t;
                         Color whiteColor = Color(1,1,1);
@@ -192,17 +192,17 @@ void display(){
 
 
                     bool sphereIntersects = sphere.intersects(nPE, pE);
-//                    bool planeIntersects = plane.intersects(nPE, pE);
-//
-//
-//                    if(planeIntersects && !sphereIntersects) {
-//                        double t = plane.getIntersectionDistance(nPE, pE);
-//                        Point3D hitPointFromEye = pE + nPE * t;
-//                        Color whiteColor = Color(1,1,1);
-//                        Color diffuseColorFromPlane = plane.calculateDiffuseColor(pE, hitPointFromEye, whiteColor);
-//
-//                        colorForPixel = colorForPixel + diffuseColorFromPlane;
-//                    }
+                    bool planeIntersects = plane.intersects(nPE, pE);
+
+
+                    if(planeIntersects && !sphereIntersects) {
+                        double t = plane.getIntersectionDistance(nPE, pE);
+                        Point3D hitPointFromEye = pE + nPE * t;
+                        Color whiteColor = Color(1,1,1);
+                        Color diffuseColorFromPlane = plane.calculateDiffuseColor(pE, hitPointFromEye, whiteColor);
+
+                        colorForPixel = colorForPixel + diffuseColorFromPlane;
+                    }
                 } // end N
             } // end M
             
