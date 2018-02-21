@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
-
+#include "Vector.hpp"
 using namespace std;
 
 class Point3D {
@@ -17,9 +17,19 @@ class Point3D {
             this -> z = z;
         }
     
+    Point3D operator+(const Vector& vector) const{
+        return Point3D(this->x + vector.x, this->y + vector.y, this->z  + vector.z);
+    }
+    
+    Point3D operator-(const Vector& vector) const{
+        return Point3D(this->x - vector.x, this->y - vector.y, this->z - vector.z);
+    }
+    
     Point3D operator-(const Point3D& point) const{
         return Point3D(this->x - point.x, this->y - point.y, this->z  - point.z);
     }
+    
+   
     
     Point3D operator+(const Point3D& point) const{
         return Point3D(this->x + point.x, this->y + point.y, this->z  + point.z);

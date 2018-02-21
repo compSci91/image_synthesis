@@ -5,6 +5,7 @@
 #include "Point3D.hpp"
 #include "Sphere.hpp"
 #include "Plane.hpp"
+#include "Vector.hpp"
 #include <GLUT/glut.h>
 #include <iostream>
 
@@ -101,17 +102,27 @@ void display(){
     Point3D pE = Point3D(250, 250, 250);
     Point3D pL = Point3D(250, 500, 250);
     
-    Point3D vView = Point3D(0, 0, -250);
-    Point3D n2 = vView.produceUnitVector();
+    Vector vView = Vector(0, 0, -250);
+    Vector n2 = vView.produceUnitVector();
+
+    Vector vUp = Vector(0, 1, 0);
+    Vector n0 = n2*vUp;
+
+    Vector n1 = n0 * n2;
     
-    Point3D vUp = Point3D(0, 1, 0);
-    Point3D n0 = n2*vUp;
     
-    Point3D n1 = n0 * n2;
+    
+//    Point3D vView = Point3D(0, 0, -250);
+//    Point3D n2 = vView.produceUnitVector();
+//
+//    Point3D vUp = Point3D(0, 1, 0);
+//    Point3D n0 = n2*vUp;
+//
+//    Point3D n1 = n0 * n2;
     
    
     double d = 250;
-    Point3D pC = pE + n2 * d;
+    Point3D pC = pE + (n2 * d);
     
     Point3D p00 = pC - (n0*(XMAX/2) + n1*(YMAX/2));
     
@@ -134,7 +145,6 @@ void display(){
                     double X = I + (m + rX)/ M;
                     double Y = J + (n + rY)/ N;
         
-
                     double x = X / (double) XMAX;
                     double y = Y / (double) YMAX;
                  
