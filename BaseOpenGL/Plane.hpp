@@ -11,13 +11,13 @@ class Plane {
     
 private:
     Point3D point;
-    Point3D directionVector;
+    Vector directionVector;
     double diffuseReflectionCoeffecient, specularColorCoefficient;
     Color diffuseColor;
     Color specularColor;
     
 public:
-    Plane(Point3D point, Point3D directionVector){
+    Plane(Point3D point, Vector directionVector){
         this-> point = point;
         this->directionVector = directionVector.produceUnitVector();
         
@@ -30,7 +30,7 @@ public:
     }
     
     
-    bool intersects(Point3D nPE, Point3D pE){
+    bool intersects(Vector nPE, Point3D pE){
         
         
         double denominator = nPE.dotProduct(directionVector);
@@ -43,7 +43,7 @@ public:
         return t >=0;
     }
     
-    double getIntersectionDistance(Point3D nPE, Point3D pE){
+    double getIntersectionDistance(Vector nPE, Point3D pE){
         double denominator = nPE.dotProduct(directionVector);
         
         double t = (point - pE).dotProduct(directionVector) / denominator;
@@ -51,26 +51,18 @@ public:
         return t;
     }
     
-    Color calculateDiffuseColor(Point3D lightPoint, Point3D hitPoint, Color lightColor){
-        Point3D normalVector = directionVector.produceUnitVector();
-        Point3D normalizedLightPoint = lightPoint.produceUnitVector();
-        // return lightColor*diffuseColor*diffuseReflectionCoeffecient*attenuation(lightPoint, hitPoint);
-        return lightColor * attenuation(lightPoint, hitPoint) * diffuseReflectionCoeffecient * diffuseColor * (normalVector.dotProduct(normalizedLightPoint));
-    }
-    
-private:
-    double attenuation(Point3D lightPoint, Point3D hitPoint){
-//        double attenuation = 1 / ((pow((lightPoint - hitPoint).calculateMagnitute(), 1) + 1));
-//        cout << "Attenuation: " << attenuation << endl;
+//    Color calculateDiffuseColor(Vector lightPoint, Point3D hitPoint, Color lightColor){
+//        Vector normalVector = directionVector.produceUnitVector();
+//        Vector normalizedLightPoint = lightPoint.produceUnitVector();
+//        // return lightColor*diffuseColor*diffuseReflectionCoeffecient*attenuation(lightPoint, hitPoint);
+//        return lightColor * diffuseReflectionCoeffecient * this->diffuseColor * (normalVector.dotProduct(normalizedLightPoint)) * attenuation(lightPoint, hitPoint);
+//    }
+//
+//private:
+//    double attenuation(Vector lightPoint, Point3D hitPoint){
+//        double magnitude = ((lightPoint - hitPoint).calculateMagnitute());
+//        double attenuation = 300 / magnitude;
 //
 //        return attenuation;
-        
-       double magnitude = ((lightPoint - hitPoint).calculateMagnitute());
-        double attenuation = 300 / magnitude;
-//        cout << "Magnitude: " << magnitude << endl;
-//        cout << "Attenuation: " << attenuation << endl << endl;
-        
-                return attenuation;
-        return 1;
-    }
+//    }
 };
