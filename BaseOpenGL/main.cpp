@@ -115,9 +115,6 @@ void display(){
     
     Point3D p00 = pC - (n0*(XMAX/2) + n1*(YMAX/2));
     
-
-   // Point3D p00 = Point3D(0, 250, 0);
-
     const int M = 2;
     const int N = 2;
 
@@ -146,9 +143,7 @@ void display(){
                     double s1 = 500;
                  
                     Point3D pP = p00 + n0*(s0 * x) + n1*(s1 * y);
-                    //pE = pP + Point3D(0, 0, 250);
                     pL = pP + Point3D(0, 0, 250);
-//                    pE.print();
                     Point3D nPE = (pP - pE).produceUnitVector();
                     
                     Point3D nLE = (pP - pL).produceUnitVector();
@@ -159,12 +154,7 @@ void display(){
                    
                     bool sphereIntersectsWithEyeVector = sphere.intersects(nPE, pE);
                     
-                    
-                    /********
-                     
-                     DIFUSE COLOR
-                     
-                     ********/
+        
                     if(sphereIntersectsWithEyeVector) {
                         double t = sphere.getIntersectionDistance(nPE, pE);
                         Point3D hitPointFromEye = pE + nPE * t;
@@ -180,7 +170,6 @@ void display(){
                          Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
                         Color borderColor = sphere.calculateBorderColor(pE , hitPointFromEye);
 
-//                        Color borderColor = Color(0,0,0);
 
                         colorForPixel = colorForPixel + diffuseColorFromSphere + borderColor;
                         
@@ -195,7 +184,7 @@ void display(){
                         double specularReflectionExponent = 10;
                         Color specularColorFromSphere = sphere.calculateSpecularColor(pL, hitPointFromLight, pE, specularReflectionExponent, whiteColor);
 
-                       // colorForPixel = colorForPixel + specularColorFromSphere;
+                        colorForPixel = colorForPixel + specularColorFromSphere;
                     }
 
 
@@ -211,16 +200,11 @@ void display(){
                         
                         colorForPixel = colorForPixel + diffuseColorFromPlane;
                     }
-                    
-
-                    
-                    
-
                 } // end N
             } // end M
             
             glBegin(GL_POINTS);
-            glColor3f(colorForPixel.red/4.0,colorForPixel.green/4.0,colorForPixel.blue/4.0);
+            glColor3f(colorForPixel.red/(M*N),colorForPixel.green/(M*N),colorForPixel.blue/(M*N));
                 glVertex2i(I,YMAX-J);
             glEnd();
         } // end J
@@ -245,8 +229,7 @@ Point3D F(Point3D p, Point3D pC, int a[3][3], int s[2], Point3D n[3] ){
 
 
 
-int main(int argc, char** argv)
-{
+int main(int argc, char** argv) {
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE);
@@ -256,33 +239,5 @@ int main(int argc, char** argv)
     glutDisplayFunc(display);
     glutMainLoop();
     
-//    Point3D pH = Point3D(5,16.01,7.95);
-//    Point3D pC = Point3D(5,8,12);
-//    int a[3][3] = {{-1, 0, 1}, {0, 0, 1}, {0, 0, 1}};
-//
-//    cout << a[2][0] << endl;
-//    int s[3] = {9, 5, 3};
-//
-//    Point3D n[3] = {Point3D(0.00,0.89,-0.45), Point3D(0.96,-0.13,-0.26), Point3D(0.29,0.43,0.86)};
-//
-//    Point3D returnedPoint = F(pH, pC, a, s, n).produceUnitVector();
-//
-//    returnedPoint.print();
-    
-//    Point3D pH = Point3D(26, 35, 57);
-//    Point3D pL = Point3D(34, 59, 93);
-//    Point3D nLH = (pL-pH).produceUnitVector();
-//
-//    Sphere sphere = Sphere(Point3D(16, 5, 12), 11);
-//
-//    if(sphere.intersects(nLH, pH)){
-//        cout << "Intersection distance is: " << sphere.getIntersectionDistance(nLH, pH) << endl;
-//    }
-//        cout << "There is no intersection point." << endl;
-//    cout << "Intersection distance is: " << sphere.getIntersectionDistance(nLH, pH) << endl;
-    
     return 0;
-
-    }
-
-
+}
