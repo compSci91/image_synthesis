@@ -52,13 +52,12 @@ public:
     Color calculateDiffuseColor(Point3D lightPoint, Point3D hitPoint, Color lightColor){
         Point3D normalVector = (hitPoint - center).produceUnitVector();
         Point3D normalizedLightPoint = lightPoint.produceUnitVector();
-       // return lightColor*diffuseColor*diffuseReflectionCoeffecient*attenuation(lightPoint, hitPoint);
         return lightColor * attenuation(lightPoint, hitPoint) * diffuseReflectionCoeffecient * diffuseColor * (normalVector.dotProduct(normalizedLightPoint));
     }
     
     Color calculateSpecularColor(Point3D lightVector, Point3D hitPoint, Point3D viewVector, double specularReflectionExponent, Color lightColor){
          Point3D normalVector = (hitPoint - center).produceUnitVector();
-        Point3D reflectionVector = normalVector* 2*(lightVector.dotProduct(normalVector)) - lightVector;
+        Point3D reflectionVector = normalVector * 2 * (lightVector.dotProduct(normalVector)) - lightVector;
         
         double cosineOfAngle = reflectionVector.produceUnitVector().dotProduct(viewVector.produceUnitVector());
         
@@ -70,6 +69,23 @@ public:
         
         return lightColor*specularColor*specularReflectionFalloff*specularColorCoefficient*specularReflectionFalloff;
         
+    }
+    
+    Color calculateBorderColor(Point3D eyePoint, Point3D hitPoint){
+        Point3D normalVector = (hitPoint - center).produceUnitVector();
+        Point3D normalizedVectorFromEypePointToHitPoint = (hitPoint-eyePoint).produceUnitVector();
+        
+        
+        double cosineOfAngle = normalVector.dotProduct(normalizedVectorFromEypePointToHitPoint);
+        
+ 
+        if(cosineOfAngle >= -.15  && cosineOfAngle <= 0.15 ){
+           // return Color(0, 0, 1);
+        }
+        
+
+        
+        return Color(0, 0, 0);
     }
     
 private:
