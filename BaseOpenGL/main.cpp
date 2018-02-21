@@ -110,19 +110,8 @@ void display(){
 
     Vector n1 = n0 * n2;
     
-    
-    
-//    Point3D vView = Point3D(0, 0, -250);
-//    Point3D n2 = vView.produceUnitVector();
-//
-//    Point3D vUp = Point3D(0, 1, 0);
-//    Point3D n0 = n2*vUp;
-//
-//    Point3D n1 = n0 * n2;
-    
-   
-    double d = 250;
-    Point3D pC = pE + (n2 * d);
+    double magnitude = 250;
+    Point3D pC = pE + (n2 * magnitude);
     
     Point3D p00 = pC - (n0*(XMAX/2) + n1*(YMAX/2));
     
