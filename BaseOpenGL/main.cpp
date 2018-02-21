@@ -100,7 +100,7 @@ void display(){
     gluOrtho2D( 0.0, XMAX, YMAX,0.0 );
 
     Point3D pE = Point3D(250, 250, 250);
-    Point3D pL = Point3D(250, 250, 250);
+    Point3D pL = Point3D(250, 500, 250);
     Point3D specularPL = Point3D(400, 400, 250);
     
     Vector vView = Vector(0, 0, -250);
@@ -164,7 +164,7 @@ void display(){
                         Color whiteColor = Color(1,1,1);
                         
 
-                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromLight, whiteColor);
+                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
 //                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromLight, whiteColor);
 
                         Color borderColor = sphere.calculateBorderColor(pE , hitPointFromEye);
