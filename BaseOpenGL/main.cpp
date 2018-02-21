@@ -143,6 +143,7 @@ void display(){
                     double s1 = 500;
                  
                     Point3D pP = p00 + n0*(s0 * x) + n1*(s1 * y);
+                   // pL = pP + Point3D(0, 0, 250);
                     Vector nPE = (pP - pE).produceUnitVector();
                     
                     Vector nLE = (pP - pL).produceUnitVector();
@@ -163,12 +164,13 @@ void display(){
                         Color whiteColor = Color(1,1,1);
                         
 
-                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
+                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromLight, whiteColor);
+//                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromLight, whiteColor);
 
                         Color borderColor = sphere.calculateBorderColor(pE , hitPointFromEye);
 
 
-                        colorForPixel = colorForPixel + diffuseColorFromSphere + borderColor;
+                        colorForPixel = colorForPixel + diffuseColorFromSphere; //+ borderColor;
                         
                     }
                     
@@ -177,7 +179,7 @@ void display(){
                     
                     
                      bool sphereIntersectsWithLightVector = sphere.intersects(specularNLE, specularPL);
-                    
+
 
 
                     if(sphereIntersectsWithLightVector){
@@ -186,7 +188,7 @@ void display(){
                         Color whiteColor = Color(1,1,1);
                         double specularReflectionExponent = 10;
                         Color specularColorFromSphere = sphere.calculateSpecularColor(specularPL, hitPointFromLight, pE, specularReflectionExponent, whiteColor);
-                        
+
                         colorForPixel = colorForPixel + specularColorFromSphere;
                     }
 

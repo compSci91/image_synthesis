@@ -29,7 +29,6 @@ public:
         this -> specularColorCoefficient = 1;
     }
     
-    
     bool intersects(Vector nPE, Point3D pE){
         
         
@@ -45,7 +44,6 @@ public:
     
     double getIntersectionDistance(Vector nPE, Point3D pE){
         double denominator = nPE.dotProduct(directionVector);
-        
         double t = (point - pE).dotProduct(directionVector) / denominator;
         
         return t;
@@ -54,7 +52,6 @@ public:
     Color calculateDiffuseColor(Point3D lightPoint, Point3D hitPoint, Color lightColor){
         Vector normalVector = directionVector.produceUnitVector();
         Vector normalizedLightPointVector = (lightPoint-hitPoint).produceUnitVector();
-        // return lightColor*diffuseColor*diffuseReflectionCoeffecient*attenuation(lightPoint, hitPoint);
         return lightColor * diffuseReflectionCoeffecient * this->diffuseColor * (normalVector.dotProduct(normalizedLightPointVector)) * attenuation(lightPoint, hitPoint);
     }
 

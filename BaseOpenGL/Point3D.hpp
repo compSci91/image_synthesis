@@ -25,19 +25,9 @@ class Point3D {
         return Point3D(this->x - vector.x, this->y - vector.y, this->z - vector.z);
     }
     
-//    Point3D operator-(const Point3D& point) const{
-//        return Point3D(this->x - point.x, this->y - point.y, this->z  - point.z);
-//    }
-    
     Vector operator-(const Point3D& point) const{
         return Vector(this->x - point.x, this->y - point.y, this->z  - point.z);
     }
-    
-   
-    
-//    Point3D operator+(const Point3D& point) const{
-//        return Point3D(this->x + point.x, this->y + point.y, this->z  + point.z);
-//    }
     
     Point3D operator+(const Point3D& point) const{
         return Point3D(this->x + point.x, this->y + point.y, this->z  + point.z);
