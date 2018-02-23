@@ -21,12 +21,12 @@ void display(){
     glLoadIdentity();
     gluOrtho2D( 0.0, XMAX, YMAX,0.0 );
     
-    Point3D centerOfSphere = Point3D(275, 75, 100);
-    Sphere sphere = Sphere(centerOfSphere, 40);
+    Point3D centerOfSphere = Point3D(275, 10, 100);
+    Sphere sphere = Sphere(centerOfSphere, 5);
     Plane plane = Plane(Point3D(0, 0, 0), Vector(0, 1 , 0));
 
-    Point3D pE = Point3D(250, 100, 250);
-    Point3D pL = Point3D(250, 250, 250);
+    Point3D pE = Point3D(270, 5, 125);
+    Point3D pL = Point3D(275, 200, 100);
     Point3D specularPL = Point3D(400, 400, 250);
     
     Vector vView = Vector(0, 0, -250);
@@ -74,21 +74,21 @@ void display(){
                    // pL = pP + Point3D(0, 0, 250);
                     Vector nPE = (pP - pE).produceUnitVector();
                     
-                    Vector nLE = (pP - pL).produceUnitVector();
+                    //Vector nLE = (pP - pL).produceUnitVector();
                     
                   
                    
                     bool sphereIntersectsWithEyeVector = sphere.intersects(nPE, pE);
-                    double distanceFromLightToSphere = 1000;
         
                     if(sphereIntersectsWithEyeVector) {
                         double t = sphere.getIntersectionDistance(nPE, pE);
                         Point3D hitPointFromEye = pE + nPE * t;
-                        
-                        distanceFromLightToSphere = sphere.getIntersectionDistance(nLE, pL);
-                        Point3D hitPointFromLight = pL + nLE * distanceFromLightToSphere;
+
+//                        distanceFromLightToSphere = sphere.getIntersectionDistance(nLE, pL);
+//                        cout << "Reassigning to: " << distanceFromLightToSphere << endl;
+//                        Point3D hitPointFromLight = pL + nLE * distanceFromLightToSphere;
                         Color whiteColor = Color(1,1,1);
-                        
+
 
                         Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
 
@@ -96,7 +96,7 @@ void display(){
 
 
                         colorForPixel = colorForPixel + diffuseColorFromSphere; //+ borderColor;
-                        
+
                     }
                     
                     Vector specularNLE = (pP - specularPL).produceUnitVector();
@@ -122,17 +122,45 @@ void display(){
 
 
                     if(planeIntersectsWithEyeVector) {
-                        double distanceFromLightToPlane = plane.getIntersectionDistance(nLE, pL);
+                        
+                        // Step 1: Calculate Hit Point From Eye
+                        double t = plane.getIntersectionDistance(nPE, pE);
+                        Point3D hitPointFromEye = pE + nPE * t;
+                        
+                        // Step 2: Create Light Vector from light point to hit point
+                        
+                        Vector nLE = (hitPointFromEye - pL).produceUnitVector();
+                        
+                        // Step 3: Calculate distances from the light point to the hitPoint
+                        
+                        double distanceFromLightToSphere = 1000000;
+                        
+                        if(sphere.intersects(nLE, pL)){ //apparently the sphere never intersects with the light. haha
+                            distanceFromLightToSphere = sphere.getIntersectionDistance(nLE, pL);
+                        }
+                        
+                        double distanceFromLightToPlane = 1000000;
+                        
+                        if(plane.intersects(nLE, pL)){ //the sphere interects with the light all day
+                            distanceFromLightToPlane = plane.getIntersectionDistance(nLE, pL);
+                        }
+                        
+                        // Step 4: Only draw if plane intersects first
+                        
+                       
 
+//                        cout << "Comparing planeLight " << distanceFromLightToPlane << " to " << distanceFromLightToSphere << endl << endl;
                         if(distanceFromLightToPlane < distanceFromLightToSphere) {
-                            double t = plane.getIntersectionDistance(nPE, pE);
-                            Point3D hitPointFromEye = pE + nPE * t;
+                            
+                           
                             Color whiteColor = Color(1,1,1);
                             Color diffuseColorFromPlane = plane.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
 
     //                        Color diffuseColorFromPlane = plane.calculateDiffuseColor(pE, hitPointFromEye, whiteColor);
 
                             colorForPixel = colorForPixel + diffuseColorFromPlane;
+                        } else  {
+                            cout << "Shadow!!!" << endl;
                         }
                     }
                 } // end N
