@@ -21,9 +21,9 @@ void display(){
     glLoadIdentity();
     gluOrtho2D( 0.0, XMAX, YMAX,0.0 );
     
-    Point3D centerOfSphere = Point3D(200, 125, 0);
-    Sphere sphere = Sphere(centerOfSphere, 62.5);
-    Plane plane = Plane(Point3D(0, 0, 0), Vector(0, 1 , 1));
+    Point3D centerOfSphere = Point3D(275, 75, 100);
+    Sphere sphere = Sphere(centerOfSphere, 40);
+    Plane plane = Plane(Point3D(0, 0, 0), Vector(0, 1 , 0));
 
     Point3D pE = Point3D(250, 100, 250);
     Point3D pL = Point3D(250, 250, 250);
