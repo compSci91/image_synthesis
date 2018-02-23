@@ -79,14 +79,14 @@ void display(){
                   
                    
                     bool sphereIntersectsWithEyeVector = sphere.intersects(nPE, pE);
-                    
+                    double distanceFromLightToSphere = 1000;
         
                     if(sphereIntersectsWithEyeVector) {
                         double t = sphere.getIntersectionDistance(nPE, pE);
                         Point3D hitPointFromEye = pE + nPE * t;
                         
-                        double d = sphere.getIntersectionDistance(nLE, pL);
-                        Point3D hitPointFromLight = pL + nLE * d;
+                        distanceFromLightToSphere = sphere.getIntersectionDistance(nLE, pL);
+                        Point3D hitPointFromLight = pL + nLE * distanceFromLightToSphere;
                         Color whiteColor = Color(1,1,1);
                         
 
@@ -118,19 +118,22 @@ void display(){
 //                    }
 
 
-                    bool sphereIntersects = sphere.intersects(nPE, pE);
-                    bool planeIntersects = plane.intersects(nPE, pE);
+                    bool planeIntersectsWithEyeVector = plane.intersects(nPE, pE);
 
 
-                    if(planeIntersects && !sphereIntersects) {
-                        double t = plane.getIntersectionDistance(nPE, pE);
-                        Point3D hitPointFromEye = pE + nPE * t;
-                        Color whiteColor = Color(1,1,1);
-                        Color diffuseColorFromPlane = plane.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
+                    if(planeIntersectsWithEyeVector) {
+                        double distanceFromLightToPlane = plane.getIntersectionDistance(nLE, pL);
 
-//                        Color diffuseColorFromPlane = plane.calculateDiffuseColor(pE, hitPointFromEye, whiteColor);
+                        if(distanceFromLightToPlane < distanceFromLightToSphere) {
+                            double t = plane.getIntersectionDistance(nPE, pE);
+                            Point3D hitPointFromEye = pE + nPE * t;
+                            Color whiteColor = Color(1,1,1);
+                            Color diffuseColorFromPlane = plane.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
 
-                        colorForPixel = colorForPixel + diffuseColorFromPlane;
+    //                        Color diffuseColorFromPlane = plane.calculateDiffuseColor(pE, hitPointFromEye, whiteColor);
+
+                            colorForPixel = colorForPixel + diffuseColorFromPlane;
+                        }
                     }
                 } // end N
             } // end M
