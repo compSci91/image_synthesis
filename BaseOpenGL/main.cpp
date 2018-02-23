@@ -26,7 +26,7 @@ void display(){
     Plane plane = Plane(Point3D(0, 0, 0), Vector(0, 1 , 0));
 
     Point3D pE = Point3D(270, 5, 125);
-    Point3D pL = Point3D(275, 200, 100);
+    Point3D pL = Point3D(0, 200, 100);
     Point3D specularPL = Point3D(400, 400, 250);
     
     Vector vView = Vector(0, 0, -250);
@@ -71,32 +71,18 @@ void display(){
                     double s1 = 500;
                  
                     Point3D pP = p00 + n0*(s0 * x) + n1*(s1 * y);
-                   // pL = pP + Point3D(0, 0, 250);
                     Vector nPE = (pP - pE).produceUnitVector();
                     
-                    //Vector nLE = (pP - pL).produceUnitVector();
-                    
-                  
-                   
                     bool sphereIntersectsWithEyeVector = sphere.intersects(nPE, pE);
         
                     if(sphereIntersectsWithEyeVector) {
                         double t = sphere.getIntersectionDistance(nPE, pE);
                         Point3D hitPointFromEye = pE + nPE * t;
-
-//                        distanceFromLightToSphere = sphere.getIntersectionDistance(nLE, pL);
-//                        cout << "Reassigning to: " << distanceFromLightToSphere << endl;
-//                        Point3D hitPointFromLight = pL + nLE * distanceFromLightToSphere;
                         Color whiteColor = Color(1,1,1);
-
-
-                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
-
+//                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
+                         Color diffuseColorFromSphere = sphere.calculateDiffuseColor(Vector(0, 1, 0), hitPointFromEye, whiteColor);
                         Color borderColor = sphere.calculateBorderColor(pE , hitPointFromEye);
-
-
                         colorForPixel = colorForPixel + diffuseColorFromSphere; //+ borderColor;
-
                     }
                     
                     Vector specularNLE = (pP - specularPL).produceUnitVector();
@@ -146,21 +132,10 @@ void display(){
                         }
                         
                         // Step 4: Only draw if plane intersects first
-                        
-                       
-
-//                        cout << "Comparing planeLight " << distanceFromLightToPlane << " to " << distanceFromLightToSphere << endl << endl;
                         if(distanceFromLightToPlane < distanceFromLightToSphere) {
-                            
-                           
                             Color whiteColor = Color(1,1,1);
                             Color diffuseColorFromPlane = plane.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
-
-    //                        Color diffuseColorFromPlane = plane.calculateDiffuseColor(pE, hitPointFromEye, whiteColor);
-
                             colorForPixel = colorForPixel + diffuseColorFromPlane;
-                        } else  {
-                            cout << "Shadow!!!" << endl;
                         }
                     }
                 } // end N

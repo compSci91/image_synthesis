@@ -51,16 +51,22 @@ public:
     
     Color calculateDiffuseColor(Point3D lightPoint, Point3D hitPointFromEye, Color lightColor){
         Vector normalVector = (hitPointFromEye - center).produceUnitVector();
-        Vector normalizedLightPoint = (lightPoint-hitPointFromEye).produceUnitVector();
-        return lightColor  * diffuseReflectionCoeffecient * diffuseColor * (normalVector.dotProduct(normalizedLightPoint));
+        Vector normalizedLightVector = (lightPoint-hitPointFromEye).produceUnitVector();
+        return lightColor  * diffuseReflectionCoeffecient * diffuseColor * (normalVector.dotProduct(normalizedLightVector));
+    }
+    
+    Color calculateDiffuseColor(Vector lightVector, Point3D hitPointFromEye, Color lightColor){
+        Vector normalVector = (hitPointFromEye - center).produceUnitVector();
+        Vector normalizedLightVector = lightVector.produceUnitVector();
+        return lightColor  * diffuseReflectionCoeffecient * diffuseColor * (normalVector.dotProduct(normalizedLightVector));
     }
     
     Color calculateSpecularColor(Point3D lightPoint, Point3D hitPoint, Point3D eyePoint, double specularReflectionExponent, Color lightColor){
         Vector normalVector = (hitPoint - center).produceUnitVector();
-        Vector lightVector = (lightPoint-hitPoint).produceUnitVector();
+        Vector normalizedLightVector = (lightPoint-hitPoint).produceUnitVector();
         
         
-        Vector reflectionVector = lightVector - normalVector * 2 * (lightVector.dotProduct(normalVector));
+        Vector reflectionVector = normalizedLightVector - normalVector * 2 * (normalizedLightVector.dotProduct(normalVector));
         
         Vector viewVector = (eyePoint - hitPoint).produceUnitVector(); 
         double cosineOfAngle = reflectionVector.produceUnitVector().dotProduct(viewVector.produceUnitVector());
