@@ -27,6 +27,11 @@ void display(){
 
     Point3D pE = Point3D(270, 5, 125);
     Point3D pL = Point3D(0, 200, 100);
+    //Vector lightVector = Vector(0, 1, 0);
+    
+    Vector spotDirection = (centerOfSphere - pL).produceUnitVector();
+    double cutoffAngle = 3 * 3.14159265 / 180;
+    
     Point3D specularPL = Point3D(400, 400, 250);
     
     Vector vView = Vector(0, 0, -250);
@@ -78,12 +83,18 @@ void display(){
                     if(sphereIntersectsWithEyeVector) {
                         double t = sphere.getIntersectionDistance(nPE, pE);
                         Point3D hitPointFromEye = pE + nPE * t;
+                        
+                        Vector L = (pL-hitPointFromEye).produceUnitVector();
+                        
+                        if((L*-1).dotProduct(spotDirection ) >= cos(cutoffAngle)){
+                        
                         Color whiteColor = Color(1,1,1);
-//                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
-                         Color diffuseColorFromSphere = sphere.calculateDiffuseColor(Vector(0, 1, 0), hitPointFromEye, whiteColor);
+                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
+                        //Color diffuseColorFromSphere = sphere.calculateDiffuseColor(lightVector, hitPointFromEye, whiteColor);
                         Color borderColor = sphere.calculateBorderColor(pE , hitPointFromEye);
                         colorForPixel = colorForPixel + diffuseColorFromSphere; //+ borderColor;
-                    }
+                        }
+                    } // end SphereIntersectsWithEyeVector
                     
                     Vector specularNLE = (pP - specularPL).produceUnitVector();
                     
@@ -113,7 +124,12 @@ void display(){
                         double t = plane.getIntersectionDistance(nPE, pE);
                         Point3D hitPointFromEye = pE + nPE * t;
                         
+                       // pL = hitPointFromEye + Point3D(0, 500, 0);
                         // Step 2: Create Light Vector from light point to hit point
+                        
+                        Vector L = (pL-hitPointFromEye).produceUnitVector();
+                        
+                        if((L*-1).dotProduct(spotDirection ) >= cos(cutoffAngle)){
                         
                         Vector nLE = (hitPointFromEye - pL).produceUnitVector();
                         
@@ -137,6 +153,8 @@ void display(){
                             Color diffuseColorFromPlane = plane.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
                             colorForPixel = colorForPixel + diffuseColorFromPlane;
                         }
+                        
+                    }
                     }
                 } // end N
             } // end M
@@ -176,6 +194,8 @@ int main(int argc, char** argv) {
     glutCreateWindow("Sphere");
     glutDisplayFunc(display);
     glutMainLoop();
+    
+    //cout << cos(90 * 3.14159265 / 180) << endl ;
     
     return 0;
 }

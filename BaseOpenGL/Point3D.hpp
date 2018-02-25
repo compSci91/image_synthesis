@@ -53,10 +53,10 @@ class Point3D {
     
   
     
-    Point3D produceUnitVector(){
+    Vector produceUnitVector(){
         double magnituteOfVector = calculateMagnitute();
         
-        return Point3D(this->x / magnituteOfVector, this->y / magnituteOfVector, this->z  / magnituteOfVector);
+        return Vector(this->x / magnituteOfVector, this->y / magnituteOfVector, this->z  / magnituteOfVector);
     }
     
     double calculateMagnitute() {
