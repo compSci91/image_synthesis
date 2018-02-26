@@ -54,6 +54,23 @@ public:
         Vector normalizedLightPointVector = (lightPoint-hitPoint).produceUnitVector();
         return lightColor * diffuseReflectionCoeffecient * this->diffuseColor * (normalVector.dotProduct(normalizedLightPointVector)) * attenuation(lightPoint, hitPoint);
     }
+    
+    Color calculateDiffuseColor_CosTheta(Point3D lightPoint, Point3D pS, Color lightColor, double previousR){
+        Vector nS = directionVector.produceUnitVector();
+        double d = 2;
+        Point3D pSPrime = pS - nS*d;
+        Vector lightVector = (pSPrime-lightPoint);
+        double distanceFromLightVectorToPSPrime = lightVector.calculateMagnitute();
+        lightVector = lightVector.produceUnitVector();
+        double distanceFromLightPointToSphere = getIntersectionDistance(lightVector, lightPoint);
+        
+        double r = distanceFromLightVectorToPSPrime - distanceFromLightPointToSphere + previousR;
+        
+        
+//       cout << "d: " << d << endl << "r: " << r << endl << endl;
+        double coeffcient = (d/r) >= 0 ? d/r : 0;
+        return lightColor  * diffuseReflectionCoeffecient * diffuseColor * coeffcient ;
+    }
 
 private:
     double attenuation(Point3D lightPoint, Point3D hitPoint){

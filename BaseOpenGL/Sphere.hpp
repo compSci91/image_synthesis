@@ -48,6 +48,23 @@ public:
         return t;
     }
     
+    double getIntersectionLength(Vector nPE, Point3D pE){
+        if(!intersects(nPE, pE)){
+            return 0;
+        }
+        
+        double firstIntersectionDistance = getIntersectionDistance(nPE, pE);
+        cout << "First Intersection Distance = " << firstIntersectionDistance << endl;
+        
+        double b = nPE.dotProduct(center - pE);
+        double c = (center - pE).dotProduct((center - pE)) - pow(radius,2);
+        
+        double secondIntersectionDistance = b + sqrt(pow(b,2) -c);
+        cout << "Second Intersection Distance = " << secondIntersectionDistance << endl;
+
+        
+        return abs(secondIntersectionDistance - firstIntersectionDistance);
+    }
     
     
     Color calculateDiffuseColor(Point3D lightPoint, Point3D hitPointFromEye, Color lightColor){

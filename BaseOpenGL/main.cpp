@@ -153,11 +153,14 @@ void display(){
                         }
                         
                         // Step 4: Only draw if plane intersects first
-                        if(distanceFromLightToPlane < distanceFromLightToSphere) {
+                       // if(distanceFromLightToPlane < distanceFromLightToSphere) {
                             Color whiteColor = Color(1,1,1);
-                            Color diffuseColorFromPlane = plane.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
+                            //Color diffuseColorFromPlane = plane.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
+                            double previousR = sphere.getIntersectionLength(nLE, pL);
+                            Color diffuseColorFromPlane = plane.calculateDiffuseColor_CosTheta(pL, hitPointFromEye, whiteColor, previousR);
+
                             colorForPixel = colorForPixel + diffuseColorFromPlane;
-                        }
+                        //}
                         
                     }
                     }
