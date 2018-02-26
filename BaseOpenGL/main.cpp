@@ -92,7 +92,8 @@ void display(){
                            centerOfSphere.z-25 <= hitPointFromEye.z && hitPointFromEye.z <= centerOfSphere.z+25) {
                         Color whiteColor = Color(1,1,1);
                         //Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
-                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(lightVector, hitPointFromEye, whiteColor);
+//                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(lightVector, hitPointFromEye, whiteColor);
+                            Color diffuseColorFromSphere  = sphere.calculateDiffuseColor_CosTheta(pL, hitPointFromEye,whiteColor);
                         Color borderColor = sphere.calculateBorderColor(pE , hitPointFromEye);
                         colorForPixel = colorForPixel + diffuseColorFromSphere; //+ borderColor;
                         }

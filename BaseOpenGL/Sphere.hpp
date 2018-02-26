@@ -49,6 +49,7 @@ public:
     }
     
     
+    
     Color calculateDiffuseColor(Point3D lightPoint, Point3D hitPointFromEye, Color lightColor){
         Vector normalVector = (hitPointFromEye - center).produceUnitVector();
         Vector normalizedLightVector = (lightPoint-hitPointFromEye).produceUnitVector();
@@ -59,6 +60,22 @@ public:
         Vector normalVector = (hitPointFromEye - center).produceUnitVector();
         Vector normalizedLightVector = lightVector.produceUnitVector();
         return lightColor  * diffuseReflectionCoeffecient * diffuseColor * (normalVector.dotProduct(normalizedLightVector));
+    }
+    
+    Color calculateDiffuseColor_CosTheta(Point3D lightPoint, Point3D pS, Color lightColor){
+        Vector nS = (pS - center).produceUnitVector();
+        double d = 2;
+        Point3D pSPrime = pS - nS*d;
+        Vector lightVector = (pSPrime-lightPoint);
+        double distanceFromLightVectorToPSPrime = lightVector.calculateMagnitute();
+        lightVector = lightVector.produceUnitVector();
+        double distanceFromLightPointToSphere = getIntersectionDistance(lightVector, lightPoint);
+        
+        double r = distanceFromLightVectorToPSPrime - distanceFromLightPointToSphere;
+        
+//        cout << "d: " << d << endl << "r: " << r << endl << endl;
+        double coeffcient = (d/r) >= 0 ? d/r : 0;
+        return lightColor  * diffuseReflectionCoeffecient * diffuseColor * coeffcient ;
     }
     
     Color calculateSpecularColor(Point3D lightPoint, Point3D hitPoint, Point3D eyePoint, double specularReflectionExponent, Color lightColor){
