@@ -27,7 +27,7 @@ void display(){
 
     Point3D pE = Point3D(270, 5, 125);
     Point3D pL = Point3D(0, 200, 100);
-    //Vector lightVector = Vector(0, 1, 0);
+    Vector lightVector = Vector(0, 1, 0);
     
     Vector spotDirection = (centerOfSphere - pL).produceUnitVector();
     double cutoffAngle = 3 * 3.14159265 / 180;
@@ -86,11 +86,13 @@ void display(){
                         
                         Vector L = (pL-hitPointFromEye).produceUnitVector();
                         
-                        if((L*-1).dotProduct(spotDirection ) >= cos(cutoffAngle)){
+                        //if((L*-1).dotProduct(spotDirection ) >= cos(cutoffAngle)){
                         
+                        if(centerOfSphere.x-25 <= hitPointFromEye.x && hitPointFromEye.x <= centerOfSphere.x+25 &&
+                           centerOfSphere.z-25 <= hitPointFromEye.z && hitPointFromEye.z <= centerOfSphere.z+25) {
                         Color whiteColor = Color(1,1,1);
-                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
-                        //Color diffuseColorFromSphere = sphere.calculateDiffuseColor(lightVector, hitPointFromEye, whiteColor);
+                        //Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
+                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(lightVector, hitPointFromEye, whiteColor);
                         Color borderColor = sphere.calculateBorderColor(pE , hitPointFromEye);
                         colorForPixel = colorForPixel + diffuseColorFromSphere; //+ borderColor;
                         }
@@ -124,13 +126,15 @@ void display(){
                         double t = plane.getIntersectionDistance(nPE, pE);
                         Point3D hitPointFromEye = pE + nPE * t;
                         
-                       // pL = hitPointFromEye + Point3D(0, 500, 0);
+                        pL = hitPointFromEye + Point3D(0, 500, 0);
                         // Step 2: Create Light Vector from light point to hit point
                         
                         Vector L = (pL-hitPointFromEye).produceUnitVector();
                         
-                        if((L*-1).dotProduct(spotDirection ) >= cos(cutoffAngle)){
+                       // if((L*-1).dotProduct(spotDirection ) >= cos(cutoffAngle)){
                         
+                        if(centerOfSphere.x-25 <= hitPointFromEye.x && hitPointFromEye.x <= centerOfSphere.x+25 &&
+                           centerOfSphere.z-25 <= hitPointFromEye.z && hitPointFromEye.z <= centerOfSphere.z+25) {
                         Vector nLE = (hitPointFromEye - pL).produceUnitVector();
                         
                         // Step 3: Calculate distances from the light point to the hitPoint
