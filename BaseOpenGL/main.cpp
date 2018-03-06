@@ -8,6 +8,9 @@
 #include "Vector.hpp"
 #include <GLUT/glut.h>
 #include <iostream>
+#include <stdio.h>
+#include <SOIL.h>
+
 
 
 const unsigned int XMAX = 500;
@@ -84,86 +87,14 @@ void display(){
                         double t = sphere.getIntersectionDistance(nPE, pE);
                         Point3D hitPointFromEye = pE + nPE * t;
                         
-                        Vector L = (pL-hitPointFromEye).produceUnitVector();
                         
-                        //if((L*-1).dotProduct(spotDirection ) >= cos(cutoffAngle)){
-                        
-                        if(centerOfSphere.x-25 <= hitPointFromEye.x && hitPointFromEye.x <= centerOfSphere.x+25 &&
-                           centerOfSphere.z-25 <= hitPointFromEye.z && hitPointFromEye.z <= centerOfSphere.z+25) {
+                
                         Color whiteColor = Color(1,1,1);
-                        //Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
-//                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(lightVector, hitPointFromEye, whiteColor);
-                            Color diffuseColorFromSphere  = sphere.calculateDiffuseColor_CosTheta(pL, hitPointFromEye,whiteColor);
-                        Color borderColor = sphere.calculateBorderColor(pE , hitPointFromEye);
-                        colorForPixel = colorForPixel + diffuseColorFromSphere; //+ borderColor;
-                        }
+                        Color diffuseColorFromSphere = sphere.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
+
+                        colorForPixel = colorForPixel + diffuseColorFromSphere;
+                        
                     } // end SphereIntersectsWithEyeVector
-                    
-                    Vector specularNLE = (pP - specularPL).produceUnitVector();
-                    
-                    
-//
-//                     bool sphereIntersectsWithLightVector = sphere.intersects(specularNLE, specularPL);
-//
-//
-//
-//                    if(sphereIntersectsWithLightVector){
-//                        double t = sphere.getIntersectionDistance(specularNLE, specularPL);
-//                        Point3D hitPointFromLight = specularPL + specularNLE * t;
-//                        Color whiteColor = Color(1,1,1);
-//                        double specularReflectionExponent = 10;
-//                        Color specularColorFromSphere = sphere.calculateSpecularColor(specularPL, hitPointFromLight, pE, specularReflectionExponent, whiteColor);
-//
-//                        colorForPixel = colorForPixel + specularColorFromSphere;
-//                    }
-
-
-                    bool planeIntersectsWithEyeVector = plane.intersects(nPE, pE);
-
-
-                    if(planeIntersectsWithEyeVector) {
-                        
-                        // Step 1: Calculate Hit Point From Eye
-                        double t = plane.getIntersectionDistance(nPE, pE);
-                        Point3D hitPointFromEye = pE + nPE * t;
-                        
-                        pL = hitPointFromEye + Point3D(0, 500, 0);
-                        // Step 2: Create Light Vector from light point to hit point
-                        
-                        Vector L = (pL-hitPointFromEye).produceUnitVector();
-                        
-                       // if((L*-1).dotProduct(spotDirection ) >= cos(cutoffAngle)){
-                        
-                        if(centerOfSphere.x-25 <= hitPointFromEye.x && hitPointFromEye.x <= centerOfSphere.x+25 &&
-                           centerOfSphere.z-25 <= hitPointFromEye.z && hitPointFromEye.z <= centerOfSphere.z+25) {
-                        Vector nLE = (hitPointFromEye - pL).produceUnitVector();
-                        
-                        // Step 3: Calculate distances from the light point to the hitPoint
-                        
-                        double distanceFromLightToSphere = 1000000;
-                        
-                        if(sphere.intersects(nLE, pL)){ //apparently the sphere never intersects with the light. haha
-                            distanceFromLightToSphere = sphere.getIntersectionDistance(nLE, pL);
-                        }
-                        
-                        double distanceFromLightToPlane = 1000000;
-                        
-                        if(plane.intersects(nLE, pL)){ //the sphere interects with the light all day
-                            distanceFromLightToPlane = plane.getIntersectionDistance(nLE, pL);
-                        }
-                        
-                        // Step 4: Only draw if plane intersects first
-                       // if(distanceFromLightToPlane < distanceFromLightToSphere) {
-                            Color whiteColor = Color(1,1,1);
-                            //Color diffuseColorFromPlane = plane.calculateDiffuseColor(pL, hitPointFromEye, whiteColor);
-                            double previousR = sphere.getIntersectionLength(nLE, pL);
-                            Color diffuseColorFromPlane = plane.calculateDiffuseColor_CosTheta(pL, hitPointFromEye, whiteColor, previousR);
-
-                            colorForPixel = colorForPixel + diffuseColorFromPlane;
-                        //}
-                        
-                    }
-                    }
                 } // end N
             } // end M
             
@@ -190,6 +121,45 @@ void display(){
 //    return finalPoint;
 //}
 
+//Stolen From: https://stackoverflow.com/questions/9296059/read-pixel-value-in-bmp-file
+//Just so I could make progress
+
+/*
+ Now data should contain the (R, G, B) values of the pixels.
+ The color of pixel (i, j) is stored at
+ data[3 * (i * width + j)],
+ data[3 * (i * width + j) + 1] and
+ data[3 * (i * width + j) + 2].
+ 
+ */
+unsigned char* readBMP(string filename)
+{
+    int i;
+    FILE* f = fopen(filename.c_str(), "rb");
+    unsigned char info[54];
+    fread(info, sizeof(unsigned char), 54, f); // read the 54-byte header
+    
+    // extract image height and width from header
+    int width = *(int*)&info[18];
+    int height = *(int*)&info[22];
+    
+    int size = 3 * width * height;
+    unsigned char* data = new unsigned char[size]; // allocate 3 bytes per pixel
+    fread(data, sizeof(unsigned char), size, f); // read the rest of the data at once
+    fclose(f);
+    
+   // In the last part, the swap between every first and third pixel is done because windows stores the color values as (B, G, R) triples, not (R, G, B).
+
+    for(i = 0; i < size; i += 3)
+    {
+        unsigned char tmp = data[i];
+        data[i] = data[i+2];
+        data[i+2] = tmp;
+    }
+    
+    return data;
+}
+
 
 
 
@@ -202,8 +172,8 @@ int main(int argc, char** argv) {
     glutCreateWindow("Sphere");
     glutDisplayFunc(display);
     glutMainLoop();
-    
-    //cout << cos(90 * 3.14159265 / 180) << endl ;
+
+   
     
     return 0;
 }
